@@ -59,61 +59,122 @@ export default function WeatherDashboardLayout() {
               <span>28</span>
             </div>
           </div>
-          {/* Air Quality Index */}
-          <div className="container-aqi-sunset flex justify-between gap-4">
-            <div className="aqi-container w-1/2 bg-white rounded-2xl p-6">
-              <div className="aqi-heading ">
-                <span className="text-2xl font-semibold">
-                  Air Quality Index
-                </span>
-              </div>
-              <div className="aqi-value flex py-2 justify-between">
-                <div className="flex">
-                  <img src={air} alt="" className="w-12 h-12 mr-2" />
-                  <div className="aqi flex flex-col px-2">
-                    <span className="">Good</span>
-                    <span className="text-sm/4">A perfect day for a walk!</span>
+          {/* Air Quality Index and sunrise sunset  */}
+          <div className="container-aqi-sunset flex justify-between gap-4 ">
+            {/* left side aqi and monthly rain  */}
+            <div className="flex flex-col gap-4 w-1/2">
+              {/* air quality index  */}
+              <div className="aqi-container bg-white rounded-2xl p-6 w-full">
+                <div className="aqi-heading ">
+                  <span className="text-2xl font-semibold">
+                    Air Quality Index
+                  </span>
+                </div>
+                <div className="aqi-value flex py-2 justify-between">
+                  <div className="flex">
+                    <img src={air} alt="" className="w-12 h-12 mr-2" />
+                    <div className="aqi flex flex-col px-2">
+                      <span className="">Good</span>
+                      <span className="text-sm/4">
+                        A perfect day for a walk!
+                      </span>
+                    </div>
+                  </div>
+                  <button className="bg-[#f3f9fd] text-[#7097DD] font-medium px-6 rounded-2xl hover:bg-[#e6eff4]">
+                    Refresh
+                  </button>
+                </div>
+                <div className="aqi-cards w-full flex gap-2 justify-between pt-2">
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <span>PM2</span>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <span>PM10</span>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <p>
+                      SO<sub>2</sub>
+                    </p>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <p>
+                      NO<sub>2</sub>
+                    </p>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <p>
+                      O<sub>3</sub>
+                    </p>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <span>CO</span>
                   </div>
                 </div>
-                <button className="bg-[#f3f9fd] text-[#7097DD] font-medium px-6 rounded-2xl hover:bg-[#e6eff4]">
-                  Refresh
-                </button>
               </div>
-              <div className="aqi-cards w-full flex gap-2 justify-between pt-2">
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                  <span>9.3</span>
-                  <span>PM2</span>
+              {/* montly rain */}
+              <div className="monthly-rain-container bg-white rounded-2xl p-6 w-full">
+                <div className="aqi-heading ">
+                  <span className="text-2xl font-semibold">
+                    Monthly Rainfall
+                  </span>
                 </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                  <span>9.3</span>
-                  <span>PM10</span>
+                <div className="aqi-value flex py-2 justify-between">
+                  <div className="flex">
+                    <img src={rain} alt="" className="w-12 h-12 mr-2" />
+                    <div className="aqi flex flex-col px-2">
+                      <span className="">Good</span>
+                      <span className="text-sm/4">
+                        Getting good rain this month!
+                      </span>
+                    </div>
+                  </div>
+                  <button className="bg-[#f3f9fd] text-[#7097DD] font-medium px-6 rounded-2xl hover:bg-[#e6eff4]">
+                    Refresh
+                  </button>
                 </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                  <span>9.3</span>
-                  <p>
-                    SO<sub>2</sub>
-                  </p>
-                </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                  <span>9.3</span>
-                  <p>
-                    NO<sub>2</sub>
-                  </p>
-                </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                  <span>9.3</span>
-                  <p>
-                    O<sub>3</sub>
-                  </p>
-                </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                  <span>9.3</span>
-                  <span>CO</span>
+                <div className="aqi-cards w-full flex gap-2 justify-between pt-2">
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <span>PM2</span>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <span>PM10</span>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <p>
+                      SO<sub>2</sub>
+                    </p>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <p>
+                      NO<sub>2</sub>
+                    </p>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <p>
+                      O<sub>3</sub>
+                    </p>
+                  </div>
+                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
+                    <span>9.3</span>
+                    <span>CO</span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="aqi-container w-1/2 bg-white rounded-2xl p-6">
-              <div className="aqi-heading mb-2">
+            {/* right side sunrise and sunset  */}
+            <div className=" sunrise-sunset-container w-1/2 bg-white rounded-2xl p-6">
+              <div className="sunrise-sunset-heading mb-2">
                 <span className="text-2xl font-semibold">Sunrise & Sunset</span>
               </div>
               {/* sunrise-sunset card s*/}
@@ -158,7 +219,7 @@ export default function WeatherDashboardLayout() {
                 <div className="name-title flex items-center ml-2 mb-4 ">
                   <MapPinIcon size={18} className="mr-1" />
                   <span className="text-sm/6 font-medium text-gray-700">
-                    Tokyo
+                    Seoul
                   </span>
                 </div>
                 {/* sunrise and sunset */}
@@ -187,6 +248,54 @@ export default function WeatherDashboardLayout() {
                       </span>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              {/* little city sunrise and sunset row */}
+              {/* city 1 */}
+              <div className="flex justify-between px-2 items-center my-4 ">
+                <div className="city flex items-center">
+                  <MapPinIcon size={18} className="mr-1" />
+                  <span>Rome</span>
+                </div>
+                <div className="sunrise-city flex items-center">
+                  <SunIcon size={18} color="#ffc489" className="mr-2" />
+                  <span>05:00 AM</span>
+                </div>
+                <div className="sunset-city flex items-center">
+                  <SunIcon size={18} color="#ffc489" className="mr-2" />
+                  <span>05:00 AM</span>
+                </div>
+              </div>
+              {/* city 2 */}
+
+              <div className="flex justify-between px-2 items-center my-4 ">
+                <div className="city flex items-center">
+                  <MapPinIcon size={18} className="mr-1" />
+                  <span>Sydney</span>
+                </div>
+                <div className="sunrise-city flex items-center">
+                  <SunIcon size={18} color="#ffc489" className="mr-2" />
+                  <span>05:00 AM</span>
+                </div>
+                <div className="sunset-city flex items-center">
+                  <SunIcon size={18} color="#ffc489" className="mr-2" />
+                  <span>05:00 AM</span>
+                </div>
+              </div>
+              {/* city 2 */}
+              <div className="flex justify-between px-2 items-center my-4 ">
+                <div className="city flex items-center">
+                  <MapPinIcon size={18} className="mr-1" />
+                  <span>Kyoto</span>
+                </div>
+                <div className="sunrise-city flex items-center">
+                  <SunIcon size={18} color="#ffc489" className="mr-2" />
+                  <span>05:00 AM</span>
+                </div>
+                <div className="sunset-city flex items-center">
+                  <SunIcon size={18} color="#ffc489" className="mr-2" />
+                  <span>05:00 AM</span>
                 </div>
               </div>
             </div>
