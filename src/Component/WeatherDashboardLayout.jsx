@@ -13,12 +13,12 @@ export default function WeatherDashboardLayout() {
       <div className="min-container h-screen w-screen">
         <div className="left flex flex-col bg-[#f0f5ff] h-screen w-7/10 px-20">
           <div className="greetings py-12 flex flex-col">
-            <h1 className="text-5xl text-blue-400 font-bold">07:32 AM</h1>
+            <h1 className="text-5xl text-[#5E8CF6] font-bold">07:32 AM</h1>
             <span className="text-sm/6 font-medium">
               Wednesday, 14 April, 2025
             </span>
-            <span className="text-7xl text-blue-400 font-medium ">
-              Good Morning, Asif!
+            <span className="text-7xl text-[#5E8CF6] font-medium tracking-tighter">
+              Good morning, Asdf!
             </span>
           </div>
           <div className="weather-cards flex  justify-between gap-4 py-6">
@@ -60,13 +60,45 @@ export default function WeatherDashboardLayout() {
                   Air Quality Index
                 </span>
               </div>
-              <div className="aqi-value flex py-2">
-                <img src={air} alt="" className="w-12 h-12" />
-                <div className="aqi flex flex-col justify-center px-2">
-                  <span className="">Good</span>
-                  <span className="text-sm/4">A perfect day for a walk!</span>
+              <div className="aqi-value flex py-2 justify-between">
+                <div className="flex">
+                  <img src={air} alt="" className="w-12 h-12 mr-2" />
+                  <div className="aqi flex flex-col px-2">
+                    <span className="">Good</span>
+                    <span className="text-sm/4">A perfect day for a walk!</span>
+                  </div>
                 </div>
-                <button className="bg-[#f3f9fd] text-blue-500 font-medium px-6">Refresh</button>
+                <button className="bg-[#f3f9fd] text-[#7097DD] font-medium px-6 rounded-2xl hover:bg-[#e6eff4]">
+                  Refresh
+                </button>
+              </div>
+              <div className="aqi-cards w-full flex  justify-between pt-2">
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                  <span>9.3</span>
+                  <span>PM2</span>
+                </div>
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                  <span>9.3</span>
+                  <span>PM10</span>
+                </div>
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                  <span>9.3</span>
+                  <p>
+                    So<sub>2</sub>
+                  </p>
+                </div>
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                  <span>9.3</span>
+                  <span>PM2</span>
+                </div>
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                  <span>9.3</span>
+                  <span>PM2</span>
+                </div>
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                  <span>9.3</span>
+                  <span>PM2</span>
+                </div>
               </div>
             </div>
             <div className="w-1/2 bg-white rounded-2xl">sunrise</div>
