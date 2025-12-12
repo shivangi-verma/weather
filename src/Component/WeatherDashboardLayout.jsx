@@ -72,32 +72,36 @@ export default function WeatherDashboardLayout() {
                   Refresh
                 </button>
               </div>
-              <div className="aqi-cards w-full flex  justify-between pt-2">
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+              <div className="aqi-cards w-full flex gap-2 justify-between pt-2">
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
                   <span>9.3</span>
                   <span>PM2</span>
                 </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
                   <span>9.3</span>
                   <span>PM10</span>
                 </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
                   <span>9.3</span>
                   <p>
-                    So<sub>2</sub>
+                    SO<sub>2</sub>
                   </p>
                 </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
                   <span>9.3</span>
-                  <span>PM2</span>
+                  <p>
+                    NO<sub>2</sub>
+                  </p>
                 </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
                   <span>9.3</span>
-                  <span>PM2</span>
+                  <p>
+                    O<sub>3</sub>
+                  </p>
                 </div>
-                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center">
+                <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
                   <span>9.3</span>
-                  <span>PM2</span>
+                  <span>CO</span>
                 </div>
               </div>
             </div>
