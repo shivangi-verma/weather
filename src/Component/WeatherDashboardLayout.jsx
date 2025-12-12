@@ -6,12 +6,18 @@ import sun from "../assets/sun.png";
 import thunder from "../assets/thunder.png";
 import wind from "../assets/wind.png";
 import air from "../assets/air.png";
+import {
+  MapPinIcon,
+  SunIcon,
+  SunHorizonIcon,
+  MoonStarsIcon,
+} from "@phosphor-icons/react";
 
 export default function WeatherDashboardLayout() {
   return (
     <>
-      <div className="min-container h-screen w-screen">
-        <div className="left flex flex-col bg-[#f0f5ff] h-screen w-7/10 px-20">
+      <div className="min-container ">
+        <div className="left flex flex-col bg-[#f0f5ff]   w-7/10 px-20">
           <div className="greetings py-12 flex flex-col">
             <h1 className="text-5xl text-[#5E8CF6] font-bold">07:32 AM</h1>
             <span className="text-sm/6 font-medium">
@@ -53,8 +59,9 @@ export default function WeatherDashboardLayout() {
               <span>28</span>
             </div>
           </div>
+          {/* Air Quality Index */}
           <div className="container-aqi-sunset flex justify-between gap-4">
-            <div className="w-1/2 bg-white rounded-2xl p-6">
+            <div className="aqi-container w-1/2 bg-white rounded-2xl p-6">
               <div className="aqi-heading ">
                 <span className="text-2xl font-semibold">
                   Air Quality Index
@@ -105,7 +112,84 @@ export default function WeatherDashboardLayout() {
                 </div>
               </div>
             </div>
-            <div className="w-1/2 bg-white rounded-2xl">sunrise</div>
+            <div className="aqi-container w-1/2 bg-white rounded-2xl p-6">
+              <div className="aqi-heading mb-2">
+                <span className="text-2xl font-semibold">Sunrise & Sunset</span>
+              </div>
+              {/* sunrise-sunset card s*/}
+              <div className="sunrise-card bg-[#FFF7F1] rounded-xl p-4 pb-6 mb-4 ">
+                <div className="name-title flex items-center ml-2 mb-4 ">
+                  <MapPinIcon size={18} className="mr-1" />
+                  <span className="text-sm/6 font-medium text-gray-700">
+                    Tokyo
+                  </span>
+                </div>
+                {/* sunrise and sunset */}
+                <div className="sunrise-sunset flex">
+                  {/* sunrise */}
+                  <div className="sunrise w-1/2 flex items-center  ">
+                    <SunIcon size={38} color="#ffc489" className="mr-2" />
+                    <div className=" flex flex-col  ">
+                      <span className=" leading-5 text-sm/6 font-medium text-gray-500 ">
+                        Sunrise
+                      </span>
+                      <span className="leading-5 font-medium text-[#5E8CF6] ">
+                        04:40 AM
+                      </span>
+                    </div>
+                  </div>
+                  {/* sunset */}
+                  <div className="sunset w-1/2 flex items-center  ">
+                    <MoonStarsIcon size={38} color="#ffc489" className="mr-2" />
+                    <div className=" flex flex-col  ">
+                      <span className=" leading-4 text-sm/6 font-medium text-gray-500 ">
+                        Sunrise
+                      </span>
+                      <span className="leading-4 font-medium text-[#5E8CF6] ">
+                        04:40 AM
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* sunrise-sunset card s*/}
+
+              <div className="sunrise-card bg-[#FFF7F1] rounded-xl p-4 pb-6 mb-4">
+                <div className="name-title flex items-center ml-2 mb-4 ">
+                  <MapPinIcon size={18} className="mr-1" />
+                  <span className="text-sm/6 font-medium text-gray-700">
+                    Tokyo
+                  </span>
+                </div>
+                {/* sunrise and sunset */}
+                <div className="sunrise-sunset flex">
+                  {/* sunrise */}
+                  <div className="sunrise w-1/2 flex items-center  ">
+                    <SunIcon size={38} color="#ffc489" className="mr-2" />
+                    <div className=" flex flex-col  ">
+                      <span className=" leading-5 text-sm/6 font-medium text-gray-500 ">
+                        Sunrise
+                      </span>
+                      <span className="leading-5 font-medium text-[#5E8CF6] ">
+                        04:40 AM
+                      </span>
+                    </div>
+                  </div>
+                  {/* sunset */}
+                  <div className="sunset w-1/2 flex items-center  ">
+                    <MoonStarsIcon size={38} color="#ffc489" className="mr-2" />
+                    <div className=" flex flex-col  ">
+                      <span className=" leading-4 text-sm/6 font-medium text-gray-500 ">
+                        Sunrise
+                      </span>
+                      <span className="leading-4 font-medium text-[#5E8CF6] ">
+                        04:40 AM
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="right w-3/10"></div>

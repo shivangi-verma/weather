@@ -8,3 +8,5 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+//skeleton loading code in comments
+// does vite supports loading.js?
