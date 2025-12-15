@@ -11,12 +11,13 @@ import {
   SunIcon,
   SunHorizonIcon,
   MoonStarsIcon,
+  MagnifyingGlassIcon,
 } from "@phosphor-icons/react";
 
 export default function WeatherDashboardLayout() {
   return (
     <>
-      <div className="min-container ">
+      <div className="min-container flex ">
         <div className="left flex flex-col bg-[#f0f5ff]   w-7/10 px-20">
           <div className="greetings py-12 flex flex-col">
             <h1 className="text-5xl text-[#5E8CF6] font-bold">07:32 AM</h1>
@@ -301,7 +302,26 @@ export default function WeatherDashboardLayout() {
             </div>
           </div>
         </div>
-        <div className="right w-3/10"></div>
+        <div className="right w-3/10 flex flex-col bg-white px-20 justify-around">
+          <div className="top flex">
+            <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2">
+              <MagnifyingGlassIcon size={28} color="#acb6df" />
+              <input
+                type="text"
+                placeholder="Search"
+                className="text-[#acb6df] px-1 focus:outline-hidden "
+              />
+            </div>
+            <button className="bg-[#96a6e0] text-white font-medium p-2 m-2 rounded-xl px-4 hover:bg-[#6b769f] cursor-pointer">
+              Search
+            </button>
+          </div>
+          <div className="mid h-14 bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex justify-center items-center">
+            <img src={cloudy_day} alt="" className="w-28 h-28" />
+            
+          </div>
+          <div className="bottom"></div>
+        </div>
       </div>
     </>
   );
