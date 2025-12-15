@@ -12,6 +12,8 @@ import {
   SunHorizonIcon,
   MoonStarsIcon,
   MagnifyingGlassIcon,
+  DropIcon,
+  WindIcon,
 } from "@phosphor-icons/react";
 
 export default function WeatherDashboardLayout() {
@@ -302,8 +304,8 @@ export default function WeatherDashboardLayout() {
             </div>
           </div>
         </div>
-        <div className="right w-3/10 flex flex-col bg-white px-20 justify-around">
-          <div className="top flex">
+        <div className="right w-3/10 flex flex-col bg-white px-20 gap-4">
+          <div className="top flex mt-4 justify-center">
             <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2">
               <MagnifyingGlassIcon size={28} color="#acb6df" />
               <input
@@ -316,11 +318,116 @@ export default function WeatherDashboardLayout() {
               Search
             </button>
           </div>
-          <div className="mid h-14 bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex justify-center items-center">
-            <img src={cloudy_day} alt="" className="w-28 h-28" />
-            
+          <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2">
+            <img src={cloudy_day} alt="" className="w-34 h-34" />
+            <span className="text-white font-medium text-5xl tracking-tighter">
+              29°
+            </span>
+            <span className="text-white font-medium text-xl ">
+              Today 15, December
+            </span>
+            <span className="text-white font-medium text-xl ">Sunny</span>
+            <div className="w-full p-2 ">
+              <div className="flex justify-around p-1">
+                <div className="flex">
+                  <WindIcon
+                    size={16}
+                    color="#fafafa"
+                    weight="bold"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-sm/4 font-medium ">
+                    Wind
+                  </span>
+                </div>
+                <span className="text-white text-sm/4 font-medium ">
+                  19 km/hr
+                </span>
+              </div>
+              <div className="flex justify-around p-1">
+                <div className="flex">
+                  <DropIcon
+                    size={16}
+                    color="#fafafa"
+                    weight="bold"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-sm/4 font-medium ">
+                    Humidity
+                  </span>
+                </div>
+                <span className="text-white text-sm/4 font-medium ">22 %</span>
+              </div>
+            </div>
           </div>
-          <div className="bottom"></div>
+          <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
+            <div className="w-full p-2 ">
+              <div className="flex justify-around p-1">
+                <div className="flex items-center">
+                  <WindIcon
+                    size={16}
+                    color="#fafafa"
+                    weight="bold"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-md font-medium ">
+                    Wind
+                  </span>
+                </div>
+                <span className="text-white text-md font-medium ">
+                  19 km/hr
+                </span>
+              </div>
+              <div className="flex justify-around p-1">
+                <div className="flex items-center">
+                  <DropIcon
+                    size={16}
+                    color="#fafafa"
+                    weight="bold"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-sm/4 font-medium ">
+                    Humidity
+                  </span>
+                </div>
+                <span className="text-white text-sm/4 font-medium ">22 %</span>
+              </div>
+            </div>
+          </div>
+            <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
+            <div className="w-full p-2 ">
+              <div className="flex justify-around p-1">
+                <div className="flex items-center">
+                  <WindIcon
+                    size={16}
+                    color="#fafafa"
+                    weight="bold"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-md font-medium ">
+                    Wind
+                  </span>
+                </div>
+                <span className="text-white text-md font-medium ">
+                  19 km/hr
+                </span>
+              </div>
+              <div className="flex justify-around p-1">
+                <div className="flex items-center">
+                  <DropIcon
+                    size={16}
+                    color="#fafafa"
+                    weight="bold"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-sm/4 font-medium ">
+                    Humidity
+                  </span>
+                </div>
+                <span className="text-white text-sm/4 font-medium ">22 %</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
