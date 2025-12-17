@@ -10,7 +10,18 @@ import {
 
 function SunriseSunsetCard({ todo }) {
   const sunrise = todo?.city?.sunrise * 1000;
-  const sunset = todo?.city?.sunset;
+  const dateSunrise = new Date(sunrise);
+  const sunriseTime = dateSunrise.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const sunset = todo?.city?.sunset * 1000;
+  const dateSunset = new Date(sunset);
+  const sunsetTime = dateSunset.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
   return (
     <>
       <div className="sunrise-card bg-[#FFF7F1] rounded-xl p-4 pb-6 mb-4 ">
@@ -28,7 +39,7 @@ function SunriseSunsetCard({ todo }) {
                 Sunrise
               </span>
               <span className="leading-5 font-medium text-[#5E8CF6] ">
-                {sunrise}
+                {sunriseTime}
               </span>
             </div>
           </div>
@@ -39,7 +50,7 @@ function SunriseSunsetCard({ todo }) {
                 Sunset
               </span>
               <span className="leading-5 font-medium text-[#5E8CF6] ">
-                {todo?.city.sunset}
+                {sunsetTime}
               </span>
             </div>
           </div>

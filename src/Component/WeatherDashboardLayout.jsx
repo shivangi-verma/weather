@@ -19,19 +19,32 @@ import { useEffect, useState } from "react";
 import WeatherCard from "./WeatherCard";
 import SunriseSunsetCard from "./SunriseSunsetCard";
 import SunriseSunsetRow from "./SunriseSunsetRow";
+import AqiRowCard from "./AqiRowCard";
 
 export default function WeatherDashboardLayout() {
   const [todo, setTodo] = useState(null);
+  const [aqi, setAqi] = useState(null);
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
   useEffect(() => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&units=metric&appid=${API_KEY}
-    `
+      `https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&units=metric&appid=${API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
         setTodo(data);
+      });
+  }, []);
+
+  // aqi
+
+  useEffect(() => {
+    fetch(
+      `http://api.openweathermap.org/data/2.5/air_pollution?lat=44.34&lon=10.99&appid=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setAqi(data);
       });
   }, []);
 
@@ -46,17 +59,42 @@ export default function WeatherDashboardLayout() {
     return iconMap[condition] || sun;
   }
 
+  const now = new Date();
+  const formattedTime = now
+    .toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })
+    .toUpperCase();
+
+  const formattedDate = now.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  function greeting() {
+    const hour = new Date().getHours();
+
+    if (hour >= 5 && hour < 12) return "Good Morning";
+    if (hour >= 12 && hour < 17) return "Good Afternoon";
+    if (hour >= 17 && hour < 21) return "Good Evening";
+    return "Good Night";
+  }
   return (
     <>
       <div className="min-container flex ">
         <div className="left flex flex-col bg-[#f0f5ff]   w-7/10 px-20">
           <div className="greetings py-12 flex flex-col">
-            <h1 className="text-5xl text-[#5E8CF6] font-bold">07:32 AM</h1>
-            <span className="text-sm/6 font-medium">
-              Wednesday, 14 April, 2025
+            <h1 className="text-5xl text-[#5E8CF6] font-bold">
+              {formattedTime}
+            </h1>
+            <span className="text-sm/6 font-medium p-2 text-gray-500">
+              {formattedDate}
             </span>
             <span className="text-7xl text-[#5E8CF6] font-medium tracking-tighter">
-              Good morning, Asdf!
+              {greeting()}, Shivangi!
             </span>
           </div>
           <div className="weather-cards flex  justify-between gap-4 py-6">
@@ -83,10 +121,13 @@ export default function WeatherDashboardLayout() {
             <div className="flex flex-col gap-4 w-1/2">
               {/* air quality index  */}
               <div className="aqi-container bg-white rounded-2xl p-6 w-full">
-                <div className="aqi-heading ">
+                <div className="aqi-heading flex justify-between">
                   <span className="text-2xl font-semibold">
                     Air Quality Index
                   </span>
+                  {/* <span className="text-2xl font-semibold">
+                    {aqi?.list[0]?.main?.aqi}
+                  </span> */}
                 </div>
                 <div className="aqi-value flex py-2 justify-between">
                   <div className="flex">
@@ -98,40 +139,46 @@ export default function WeatherDashboardLayout() {
                       </span>
                     </div>
                   </div>
-                  <button className="bg-[#f3f9fd] text-[#7097DD] font-medium px-6 rounded-2xl hover:bg-[#e6eff4]">
-                    Refresh
-                  </button>
+                  <div className="bg-[#f3f9fd] text-[#7097DD] font-medium px-6 rounded-2xl flex justify-center items-center  ">
+                    <span> AQI: {aqi?.list[0]?.main?.aqi}</span>
+                  </div>
                 </div>
-                <div className="aqi-cards w-full flex gap-2 justify-between pt-2">
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <span>PM2</span>
+                <div className="aqi-cards w-full ">
+                  <div className="flex gap-2 m-2">
+                    <AqiRowCard
+                      aqiVal={aqi?.list[0]?.components?.pm2_5}
+                      aqiComp="PM2"
+                    />
+                    <AqiRowCard
+                      aqiVal={aqi?.list[0]?.components?.pm10}
+                      aqiComp="PM10"
+                    />
+                    <AqiRowCard
+                      aqiVal={aqi?.list[0]?.components?.co}
+                      aqiComp="CO"
+                    />
+                    <AqiRowCard
+                      aqiVal={aqi?.list[0]?.components?.no}
+                      aqiComp="NO"
+                    />
                   </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <span>PM10</span>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <p>
-                      SO<sub>2</sub>
-                    </p>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <p>
-                      NO<sub>2</sub>
-                    </p>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <p>
-                      O<sub>3</sub>
-                    </p>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <span>CO</span>
+                  <div className="flex gap-2 m-2">
+                    <AqiRowCard
+                      aqiVal={aqi?.list[0]?.components?.no2}
+                      aqiComp="NO2"
+                    />
+                    <AqiRowCard
+                      aqiVal={aqi?.list[0]?.components?.o3}
+                      aqiComp="O3"
+                    />{" "}
+                    <AqiRowCard
+                      aqiVal={aqi?.list[0]?.components?.so2}
+                      aqiComp="SO2"
+                    />
+                    <AqiRowCard
+                      aqiVal={aqi?.list[0]?.components?.nh3}
+                      aqiComp="NH3"
+                    />
                   </div>
                 </div>
               </div>
