@@ -15,8 +15,37 @@ import {
   DropIcon,
   WindIcon,
 } from "@phosphor-icons/react";
+import { useEffect, useState } from "react";
+import WeatherCard from "./WeatherCard";
+import SunriseSunsetCard from "./SunriseSunsetCard";
+import SunriseSunsetRow from "./SunriseSunsetRow";
 
 export default function WeatherDashboardLayout() {
+  const [todo, setTodo] = useState(null);
+  const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+
+  useEffect(() => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&units=metric&appid=${API_KEY}
+    `
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setTodo(data);
+      });
+  }, []);
+
+  function getWeatherIcon(condition) {
+    const iconMap = {
+      Clear: sun,
+      Clouds: cloudy_day,
+      Rain: rain,
+      Thunderstorm: rain_thunder,
+      Wind: wind,
+    };
+    return iconMap[condition] || sun;
+  }
+
   return (
     <>
       <div className="min-container flex ">
@@ -31,36 +60,22 @@ export default function WeatherDashboardLayout() {
             </span>
           </div>
           <div className="weather-cards flex  justify-between gap-4 py-6">
-            <div className="card bg-white shadow rounded-2xl p-2 flex flex-col justify-center items-center  w-full">
-              <img src={rain} alt="" className="w-24 h-24" />
-              <span>Sun</span>
-              <span>28</span>
-            </div>
-            <div className="card bg-white shadow rounded-2xl p-2 flex flex-col  justify-center items-center w-full">
-              <img src={cloudy_day} alt="" className="w-24 h-24" />
-              <span>Sun</span>
-              <span>28</span>
-            </div>
-            <div className="card bg-white shadow rounded-2xl p-2 flex flex-col justify-center items-center w-full">
-              <img src={rain_thunder} alt="" className="w-24 h-24" />
-              <span>Sun</span>
-              <span>28</span>
-            </div>
-            <div className="card bg-white shadow rounded-2xl p-2 flex flex-col justify-center items-center w-full">
-              <img src={sun} alt="" className="w-24 h-24" />
-              <span>Sun</span>
-              <span>28</span>
-            </div>
-            <div className="card bg-white shadow rounded-2xl p-2 flex flex-col  justify-center items-center w-full">
-              <img src={thunder} alt="" className="w-24 h-24" />
-              <span>Sun</span>
-              <span>28</span>
-            </div>
-            <div className="card bg-white shadow rounded-2xl p-2 flex flex-col  justify-center items-center w-full">
-              <img src={wind} alt="" className="w-24 h-24" />
-              <span>Sun</span>
-              <span>28</span>
-            </div>
+            {todo?.list?.map((item, index) => {
+              let timestamp = item.dt * 1000; // Convert to milliseconds
+              let date = new Date(timestamp);
+
+              if (date.getUTCHours() == "12")
+                return (
+                  <WeatherCard
+                    key={index}
+                    // src={air}
+                    src={getWeatherIcon(item?.weather[0]?.main)}
+                    weather={item?.weather[0]?.main}
+                    day={date.toUTCString().slice(0, 3)}
+                    temp={item.main.temp}
+                  />
+                );
+            })}
           </div>
           {/* Air Quality Index and sunrise sunset  */}
           <div className="container-aqi-sunset flex justify-between gap-4 ">
@@ -180,127 +195,15 @@ export default function WeatherDashboardLayout() {
               <div className="sunrise-sunset-heading mb-2">
                 <span className="text-2xl font-semibold">Sunrise & Sunset</span>
               </div>
-              {/* sunrise-sunset card s*/}
-              <div className="sunrise-card bg-[#FFF7F1] rounded-xl p-4 pb-6 mb-4 ">
-                <div className="name-title flex items-center ml-2 mb-4 ">
-                  <MapPinIcon size={18} className="mr-1" />
-                  <span className="text-sm/6 font-medium text-gray-700">
-                    Tokyo
-                  </span>
-                </div>
-                {/* sunrise and sunset */}
-                <div className="sunrise-sunset flex">
-                  {/* sunrise */}
-                  <div className="sunrise w-1/2 flex items-center  ">
-                    <SunIcon size={38} color="#ffc489" className="mr-2" />
-                    <div className=" flex flex-col  ">
-                      <span className=" leading-5 text-sm/6 font-medium text-gray-500 ">
-                        Sunrise
-                      </span>
-                      <span className="leading-5 font-medium text-[#5E8CF6] ">
-                        04:40 AM
-                      </span>
-                    </div>
-                  </div>
-                  {/* sunset */}
-                  <div className="sunset w-1/2 flex items-center  ">
-                    <MoonStarsIcon size={38} color="#ffc489" className="mr-2" />
-                    <div className=" flex flex-col  ">
-                      <span className=" leading-4 text-sm/6 font-medium text-gray-500 ">
-                        Sunrise
-                      </span>
-                      <span className="leading-4 font-medium text-[#5E8CF6] ">
-                        04:40 AM
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* sunrise-sunset card s*/}
 
-              <div className="sunrise-card bg-[#FFF7F1] rounded-xl p-4 pb-6 mb-4">
-                <div className="name-title flex items-center ml-2 mb-4 ">
-                  <MapPinIcon size={18} className="mr-1" />
-                  <span className="text-sm/6 font-medium text-gray-700">
-                    Seoul
-                  </span>
-                </div>
-                {/* sunrise and sunset */}
-                <div className="sunrise-sunset flex">
-                  {/* sunrise */}
-                  <div className="sunrise w-1/2 flex items-center  ">
-                    <SunIcon size={38} color="#ffc489" className="mr-2" />
-                    <div className=" flex flex-col  ">
-                      <span className=" leading-5 text-sm/6 font-medium text-gray-500 ">
-                        Sunrise
-                      </span>
-                      <span className="leading-5 font-medium text-[#5E8CF6] ">
-                        04:40 AM
-                      </span>
-                    </div>
-                  </div>
-                  {/* sunset */}
-                  <div className="sunset w-1/2 flex items-center  ">
-                    <MoonStarsIcon size={38} color="#ffc489" className="mr-2" />
-                    <div className=" flex flex-col  ">
-                      <span className=" leading-4 text-sm/6 font-medium text-gray-500 ">
-                        Sunrise
-                      </span>
-                      <span className="leading-4 font-medium text-[#5E8CF6] ">
-                        04:40 AM
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <SunriseSunsetCard todo={todo} />
+              <SunriseSunsetCard todo={todo} />
 
               {/* little city sunrise and sunset row */}
-              {/* city 1 */}
-              <div className="flex justify-between px-2 items-center my-4 ">
-                <div className="city flex items-center">
-                  <MapPinIcon size={18} className="mr-1" />
-                  <span>Rome</span>
-                </div>
-                <div className="sunrise-city flex items-center">
-                  <SunIcon size={18} color="#ffc489" className="mr-2" />
-                  <span>05:00 AM</span>
-                </div>
-                <div className="sunset-city flex items-center">
-                  <SunIcon size={18} color="#ffc489" className="mr-2" />
-                  <span>05:00 AM</span>
-                </div>
-              </div>
-              {/* city 2 */}
 
-              <div className="flex justify-between px-2 items-center my-4 ">
-                <div className="city flex items-center">
-                  <MapPinIcon size={18} className="mr-1" />
-                  <span>Sydney</span>
-                </div>
-                <div className="sunrise-city flex items-center">
-                  <SunIcon size={18} color="#ffc489" className="mr-2" />
-                  <span>05:00 AM</span>
-                </div>
-                <div className="sunset-city flex items-center">
-                  <SunIcon size={18} color="#ffc489" className="mr-2" />
-                  <span>05:00 AM</span>
-                </div>
-              </div>
-              {/* city 2 */}
-              <div className="flex justify-between px-2 items-center my-4 ">
-                <div className="city flex items-center">
-                  <MapPinIcon size={18} className="mr-1" />
-                  <span>Kyoto</span>
-                </div>
-                <div className="sunrise-city flex items-center">
-                  <SunIcon size={18} color="#ffc489" className="mr-2" />
-                  <span>05:00 AM</span>
-                </div>
-                <div className="sunset-city flex items-center">
-                  <SunIcon size={18} color="#ffc489" className="mr-2" />
-                  <span>05:00 AM</span>
-                </div>
-              </div>
+              <SunriseSunsetRow todo={todo} />
+              <SunriseSunsetRow todo={todo} />
+              <SunriseSunsetRow todo={todo} />
             </div>
           </div>
         </div>
@@ -321,12 +224,17 @@ export default function WeatherDashboardLayout() {
           <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2">
             <img src={cloudy_day} alt="" className="w-34 h-34" />
             <span className="text-white font-medium text-5xl tracking-tighter">
-              29°
+              {todo?.list?.[0]?.main?.temp ?? "--"}°
+            </span>{" "}
+            <span className="text-white font-medium text-xl ">
+              {todo?.list[0]?.weather[0]?.main}
             </span>
             <span className="text-white font-medium text-xl ">
               Today 15, December
             </span>
-            <span className="text-white font-medium text-xl ">Sunny</span>
+            <span className="text-white font-medium text-xl ">
+              {todo?.city?.name}
+            </span>
             <div className="w-full p-2 ">
               <div className="flex justify-around p-1">
                 <div className="flex">
@@ -370,9 +278,7 @@ export default function WeatherDashboardLayout() {
                     weight="bold"
                     className="mr-1"
                   />
-                  <span className="text-white text-md font-medium ">
-                    Wind
-                  </span>
+                  <span className="text-white text-md font-medium ">Wind</span>
                 </div>
                 <span className="text-white text-md font-medium ">
                   19 km/hr
@@ -394,7 +300,7 @@ export default function WeatherDashboardLayout() {
               </div>
             </div>
           </div>
-            <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
+          <div className="bottom bg-linear-to-r from-[#FEC57D] to-[#FDAE52] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
             <div className="w-full p-2 ">
               <div className="flex justify-around p-1">
                 <div className="flex items-center">
@@ -404,9 +310,7 @@ export default function WeatherDashboardLayout() {
                     weight="bold"
                     className="mr-1"
                   />
-                  <span className="text-white text-md font-medium ">
-                    Wind
-                  </span>
+                  <span className="text-white text-md font-medium ">Wind</span>
                 </div>
                 <span className="text-white text-md font-medium ">
                   19 km/hr
