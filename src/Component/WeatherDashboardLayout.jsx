@@ -116,9 +116,9 @@ export default function WeatherDashboardLayout() {
             })}
           </div>
           {/* Air Quality Index and sunrise sunset  */}
-          <div className="container-aqi-sunset flex justify-between gap-4 ">
+          <div className="container-aqi-sunset flex justify-between gap-4 mb-6">
             {/* left side aqi and monthly rain  */}
-            <div className="flex flex-col gap-4 w-1/2">
+            <div className="flex flex-col gap-4 w-1/2 shadow  rounded-2xl ">
               {/* air quality index  */}
               <div className="aqi-container bg-white rounded-2xl p-6 w-full">
                 <div className="aqi-heading flex justify-between">
@@ -133,8 +133,10 @@ export default function WeatherDashboardLayout() {
                   <div className="flex">
                     <img src={air} alt="" className="w-12 h-12 mr-2" />
                     <div className="aqi flex flex-col px-2">
-                      <span className="">Good</span>
-                      <span className="text-sm/4">
+                      <span className="font-semibold text-lg text-gray-600">
+                        Good
+                      </span>
+                      <span className="text-sm/4 text-gray-500">
                         A perfect day for a walk!
                       </span>
                     </div>
@@ -182,69 +184,15 @@ export default function WeatherDashboardLayout() {
                   </div>
                 </div>
               </div>
-              {/* montly rain */}
-              <div className="monthly-rain-container bg-white rounded-2xl p-6 w-full">
-                <div className="aqi-heading ">
-                  <span className="text-2xl font-semibold">
-                    Monthly Rainfall
-                  </span>
-                </div>
-                <div className="aqi-value flex py-2 justify-between">
-                  <div className="flex">
-                    <img src={rain} alt="" className="w-12 h-12 mr-2" />
-                    <div className="aqi flex flex-col px-2">
-                      <span className="">Good</span>
-                      <span className="text-sm/4">
-                        Getting good rain this month!
-                      </span>
-                    </div>
-                  </div>
-                  <button className="bg-[#f3f9fd] text-[#7097DD] font-medium px-6 rounded-2xl hover:bg-[#e6eff4]">
-                    Refresh
-                  </button>
-                </div>
-                <div className="aqi-cards w-full flex gap-2 justify-between pt-2">
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <span>PM2</span>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <span>PM10</span>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <p>
-                      SO<sub>2</sub>
-                    </p>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <p>
-                      NO<sub>2</sub>
-                    </p>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <p>
-                      O<sub>3</sub>
-                    </p>
-                  </div>
-                  <div className="aqi-card flex bg-[#EBF9F5] text-green-400 font-medium flex-col px-3 py-6 rounded-xl items-center w-1/6">
-                    <span>9.3</span>
-                    <span>CO</span>
-                  </div>
-                </div>
-              </div>
             </div>
             {/* right side sunrise and sunset  */}
-            <div className=" sunrise-sunset-container w-1/2 bg-white rounded-2xl p-6">
+            <div className="sunrise-sunset-container w-1/2 bg-white rounded-2xl p-6 shadow">
               <div className="sunrise-sunset-heading mb-2">
                 <span className="text-2xl font-semibold">Sunrise & Sunset</span>
               </div>
 
               <SunriseSunsetCard todo={todo} />
-              <SunriseSunsetCard todo={todo} />
+              {/* <SunriseSunsetCard todo={todo} /> */}
 
               {/* little city sunrise and sunset row */}
 
