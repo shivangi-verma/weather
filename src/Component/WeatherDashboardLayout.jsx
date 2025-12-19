@@ -7,13 +7,16 @@ import thunder from "../assets/thunder.png";
 import wind from "../assets/wind.png";
 import air from "../assets/air.png";
 import {
-  MapPinIcon,
+  MapPinLineIcon,
   SunIcon,
   SunHorizonIcon,
   MoonStarsIcon,
   MagnifyingGlassIcon,
   DropIcon,
   WindIcon,
+  SnowflakeIcon,
+  FireIcon,
+  ThermometerColdIcon,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import WeatherCard from "./WeatherCard";
@@ -256,7 +259,7 @@ export default function WeatherDashboardLayout() {
           <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2">
             <img src={cloudy_day} alt="" className="w-34 h-34" />
             <span className="text-white font-medium text-5xl tracking-tighter">
-              {currentTemp ?? "--"}°
+              {currentTemp ?? "--"}°C
             </span>
             <span className="text-white font-medium text-xl ">
               {todo?.list[0]?.weather[0]?.main}
@@ -264,40 +267,58 @@ export default function WeatherDashboardLayout() {
             {/* <span className="text-white font-medium text-xl ">
               Today 15, December
             </span> */}
-            <span className="text-white font-medium text-xl flex  justify-center items-center">
-              <MapPinIcon size={18} className="mr-1" weight="bold" />
+            <span className="text-white font-medium text-xl flex justify-center items-center">
+              <MapPinLineIcon size={20} className="mr-1" weight="fill" />
               {todo?.city?.name}
             </span>
             <div className="w-full p-2 ">
               <div className="flex justify-around p-1">
                 <div className="flex">
                   <WindIcon
-                    size={16}
+                    size={24}
                     color="#fafafa"
                     weight="bold"
                     className="mr-1"
                   />
-                  <span className="text-white text-sm/4 font-medium ">
+                  <span className="text-white text-md font-medium ">
                     Feels Like
                   </span>
                 </div>
-                <span className="text-white text-lg font-medium ">
-                  {todo?.list[0]?.main?.feels_like}°
+                <span className="text-white text-md font-medium ">
+                  {todo?.list[0]?.main?.feels_like}°C
                 </span>
               </div>
               <div className="flex justify-around p-1">
-                <div className="flex">
-                  <DropIcon
-                    size={16}
-                    color="#fafafa"
-                    weight="bold"
+                <div className="flex items-center justify-center">
+                  <SnowflakeIcon
+                    size={20}
+                    color="#fff"
+                    weight="fill"
                     className="mr-1"
                   />
-                  <span className="text-white text-sm/4 font-medium ">
-                    Humidity
+                  <span className="text-white text-md font-medium ">
+                    Min Temp
                   </span>
                 </div>
-                <span className="text-white text-sm/4 font-medium ">22 %</span>
+                <span className="text-white text-md font-medium ">
+                  {todo?.list[0]?.main?.temp_min}°C
+                </span>
+              </div>
+              <div className="flex justify-around p-1">
+                <div className="flex items-center justify-center">
+                  <FireIcon
+                    size={20}
+                    color="#fff"
+                    weight="fill"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-md font-medium ">
+                    Max Temp
+                  </span>
+                </div>
+                <span className="text-white text-md font-medium ">
+                  {todo?.list[0]?.main?.temp_max}°C
+                </span>
               </div>
             </div>
           </div>
