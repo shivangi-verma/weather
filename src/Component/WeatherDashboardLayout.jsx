@@ -138,7 +138,7 @@ export default function WeatherDashboardLayout() {
               {formattedDate}
             </span>
             <span className="text-7xl text-[#5E8CF6] font-medium tracking-tighter">
-              {greeting()}, Shivangi!
+              {greeting()}, Pumpkin!
             </span>
           </div>
           <div className="weather-cards flex  justify-between gap-4 py-6">
