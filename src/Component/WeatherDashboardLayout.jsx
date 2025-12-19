@@ -20,12 +20,17 @@ import {
   AngleIcon,
   SpeedometerIcon,
   FeatherIcon,
+  DropSimpleIcon,
+  EyeIcon,
+  CrosshairIcon,
 } from "@phosphor-icons/react";
+import { Crosshair }  from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import WeatherCard from "./WeatherCard";
 import SunriseSunsetCard from "./SunriseSunsetCard";
 import SunriseSunsetRow from "./SunriseSunsetRow";
 import AqiRowCard from "./AqiRowCard";
+import RowAfterSunrise from "./RowAfterSunrise";
 
 export default function WeatherDashboardLayout() {
   const [todo, setTodo] = useState(null);
@@ -153,8 +158,7 @@ export default function WeatherDashboardLayout() {
                 );
             })}
           </div>
-          {/* Air Quality Index and sunrise sunset  */}
-          <div className="container-aqi-sunset flex justify-between gap-4 mb-6">
+          <div className="containers-aqi-sunset flex justify-between gap-4 mb-6">
             {/* left side aqi and monthly rain  */}
             <div className="flex flex-col gap-4 w-1/2 shadow  rounded-2xl ">
               {/* air quality index  */}
@@ -224,19 +228,17 @@ export default function WeatherDashboardLayout() {
               </div>
             </div>
             {/* right side sunrise and sunset  */}
-            <div className="sunrise-sunset-container w-1/2 bg-white rounded-2xl p-6 shadow">
-              <div className="sunrise-sunset-heading mb-2">
-                <span className="text-2xl font-semibold">Sunrise & Sunset</span>
+            <div className="sunrise-sunset-container w-1/2 flex flex-col gap-4 justify-between ">
+              <div className="bg-white rounded-2xl p-6 shadow flex flex-col justify-between ">
+                <div className="sunrise-sunset-heading m-2">
+                  <span className="text-2xl font-semibold">
+                    Sunrise & Sunset
+                  </span>
+                </div>
+                <SunriseSunsetCard todo={todo} />
+                <RowAfterSunrise todo={todo} item="Pressure" unit="Pa" icon='CrossHairIcon'/>
+                <RowAfterSunrise todo={todo} item="Pressure" unit="Pa" />
               </div>
-
-              <SunriseSunsetCard todo={todo} />
-              {/* <SunriseSunsetCard todo={todo} /> */}
-
-              {/* little city sunrise and sunset row */}
-              {/* 
-              <SunriseSunsetRow todo={todo} />
-              <SunriseSunsetRow todo={todo} />
-              <SunriseSunsetRow todo={todo} /> */}
             </div>
           </div>
         </div>
@@ -279,7 +281,7 @@ export default function WeatherDashboardLayout() {
                 <div className="flex justify-center items-center">
                   <FeatherIcon
                     size={18}
-                    color="#fafafa"
+                    color="#fff"
                     weight="fill"
                     className="mr-1"
                   />
@@ -331,7 +333,7 @@ export default function WeatherDashboardLayout() {
                 <div className="flex items-center">
                   <SpeedometerIcon
                     size={18}
-                    color="#fafafa"
+                    color="#fff"
                     weight="fill"
                     className="mr-1"
                   />
@@ -340,14 +342,14 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <span className="text-white text-md font-medium ">
-                  {todo?.list[0]?.wind?.speed} km/hr
+                  {todo?.list[0]?.wind?.speed} m/s
                 </span>
               </div>
               <div className="flex justify-between p-1">
                 <div className="flex items-center">
                   <AngleIcon
                     size={18}
-                    color="#fafafa"
+                    color="#fff"
                     weight="bold"
                     className="mr-1"
                   />
@@ -363,7 +365,7 @@ export default function WeatherDashboardLayout() {
                 <div className="flex items-center">
                   <WindIcon
                     size={18}
-                    color="#fafafa"
+                    color="#fff"
                     weight="bold"
                     className="mr-1"
                   />
@@ -371,41 +373,43 @@ export default function WeatherDashboardLayout() {
                     Wind Gust
                   </span>
                 </div>
-                <span className="text-white text-md font-medium ">
-                  19 km/hr
-                </span>
+                <span className="text-white text-md font-medium ">19 m/s</span>
               </div>
             </div>
           </div>
           <div className="bottom bg-linear-to-r from-[#FEC57D] to-[#FDAE52] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
             <div className="w-full p-2 ">
-              <div className="flex justify-around p-1">
-                <div className="flex items-center">
-                  <WindIcon
-                    size={16}
-                    color="#fafafa"
-                    weight="bold"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">Wind</span>
-                </div>
-                <span className="text-white text-md font-medium ">
-                  19 km/hr
-                </span>
-              </div>
-              <div className="flex justify-around p-1">
-                <div className="flex items-center">
+              <div className="flex justify-between p-1">
+                <div className="flex items-center justify-center">
                   <DropIcon
-                    size={16}
-                    color="#fafafa"
-                    weight="bold"
+                    size={18}
+                    color="#fff"
+                    weight="fill"
                     className="mr-1"
                   />
-                  <span className="text-white text-sm/4 font-medium ">
+                  <span className="text-white text-md font-medium ">
                     Humidity
                   </span>
                 </div>
-                <span className="text-white text-sm/4 font-medium ">22 %</span>
+                <span className="text-white text-md font-medium ">
+                  {todo?.list[0]?.main?.humidity}%
+                </span>
+              </div>
+              <div className="flex justify-between p-1">
+                <div className="flex items-center justify-center">
+                  <EyeIcon
+                    size={18}
+                    color="#fff"
+                    weight="fill"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-md font-medium ">
+                    Visibility
+                  </span>
+                </div>
+                <span className="text-white text-md font-medium ">
+                  {todo?.list[0]?.visibility} m
+                </span>
               </div>
             </div>
           </div>
