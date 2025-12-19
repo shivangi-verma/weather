@@ -82,6 +82,38 @@ export default function WeatherDashboardLayout() {
     if (hour >= 17 && hour < 21) return "Good Evening";
     return "Good Night";
   }
+
+  // const currentTemp = (todo?.list?.[0]?.main?.temp).toFixed(1);
+  const currentTemp =
+    typeof todo?.list?.[0]?.main?.temp === "number"
+      ? todo.list[0].main.temp.toFixed(1)
+      : null;
+
+  const [city, setCity] = useState("Modena");
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    if (!city) return;
+
+    fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => setTodo(data));
+  }, [city]);
+
+  useEffect(() => {
+    if (!todo?.city?.coord) return;
+
+    const { lat, lon } = todo.city.coord;
+
+    fetch(
+      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => setAqi(data));
+  }, [todo]);
+
   return (
     <>
       <div className="min-container flex ">
@@ -110,7 +142,7 @@ export default function WeatherDashboardLayout() {
                     src={getWeatherIcon(item?.weather[0]?.main)}
                     weather={item?.weather[0]?.main}
                     day={date.toUTCString().slice(0, 3)}
-                    temp={item.main.temp}
+                    temp={item?.main?.temp}
                   />
                 );
             })}
@@ -195,10 +227,10 @@ export default function WeatherDashboardLayout() {
               {/* <SunriseSunsetCard todo={todo} /> */}
 
               {/* little city sunrise and sunset row */}
-
+              {/* 
               <SunriseSunsetRow todo={todo} />
               <SunriseSunsetRow todo={todo} />
-              <SunriseSunsetRow todo={todo} />
+              <SunriseSunsetRow todo={todo} /> */}
             </div>
           </div>
         </div>
@@ -208,26 +240,32 @@ export default function WeatherDashboardLayout() {
               <MagnifyingGlassIcon size={28} color="#acb6df" />
               <input
                 type="text"
-                placeholder="Search"
+                placeholder="Search City..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 className="text-[#acb6df] px-1 focus:outline-hidden "
               />
             </div>
-            <button className="bg-[#96a6e0] text-white font-medium p-2 m-2 rounded-xl px-4 hover:bg-[#6b769f] cursor-pointer">
+            <button
+              className="bg-[#96a6e0] text-white font-medium p-2 m-2 rounded-xl px-4 hover:bg-[#6b769f] cursor-pointer"
+              onClick={() => setCity(search)}
+            >
               Search
             </button>
           </div>
           <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2">
             <img src={cloudy_day} alt="" className="w-34 h-34" />
             <span className="text-white font-medium text-5xl tracking-tighter">
-              {todo?.list?.[0]?.main?.temp ?? "--"}°
-            </span>{" "}
+              {currentTemp ?? "--"}°
+            </span>
             <span className="text-white font-medium text-xl ">
               {todo?.list[0]?.weather[0]?.main}
             </span>
-            <span className="text-white font-medium text-xl ">
+            {/* <span className="text-white font-medium text-xl ">
               Today 15, December
-            </span>
-            <span className="text-white font-medium text-xl ">
+            </span> */}
+            <span className="text-white font-medium text-xl flex  justify-center items-center">
+              <MapPinIcon size={18} className="mr-1" weight="bold" />
               {todo?.city?.name}
             </span>
             <div className="w-full p-2 ">
@@ -240,11 +278,11 @@ export default function WeatherDashboardLayout() {
                     className="mr-1"
                   />
                   <span className="text-white text-sm/4 font-medium ">
-                    Wind
+                    Feels Like
                   </span>
                 </div>
-                <span className="text-white text-sm/4 font-medium ">
-                  19 km/hr
+                <span className="text-white text-lg font-medium ">
+                  {todo?.list[0]?.main?.feels_like}°
                 </span>
               </div>
               <div className="flex justify-around p-1">
