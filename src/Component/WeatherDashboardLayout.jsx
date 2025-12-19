@@ -17,6 +17,9 @@ import {
   SnowflakeIcon,
   FireIcon,
   ThermometerColdIcon,
+  AngleIcon,
+  SpeedometerIcon,
+  FeatherIcon,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import WeatherCard from "./WeatherCard";
@@ -273,11 +276,11 @@ export default function WeatherDashboardLayout() {
             </span>
             <div className="w-full p-2 ">
               <div className="flex justify-around p-1">
-                <div className="flex">
-                  <WindIcon
-                    size={24}
+                <div className="flex justify-center items-center">
+                  <FeatherIcon
+                    size={18}
                     color="#fafafa"
-                    weight="bold"
+                    weight="fill"
                     className="mr-1"
                   />
                   <span className="text-white text-md font-medium ">
@@ -324,33 +327,53 @@ export default function WeatherDashboardLayout() {
           </div>
           <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
             <div className="w-full p-2 ">
-              <div className="flex justify-around p-1">
+              <div className="flex justify-between p-1">
                 <div className="flex items-center">
-                  <WindIcon
-                    size={16}
+                  <SpeedometerIcon
+                    size={18}
+                    color="#fafafa"
+                    weight="fill"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-md font-medium ">
+                    Wind Speed
+                  </span>
+                </div>
+                <span className="text-white text-md font-medium ">
+                  {todo?.list[0]?.wind?.speed} km/hr
+                </span>
+              </div>
+              <div className="flex justify-between p-1">
+                <div className="flex items-center">
+                  <AngleIcon
+                    size={18}
                     color="#fafafa"
                     weight="bold"
                     className="mr-1"
                   />
-                  <span className="text-white text-md font-medium ">Wind</span>
+                  <span className="text-white text-md font-medium ">
+                    Wind Degree
+                  </span>
+                </div>
+                <span className="text-white text-md font-medium ">
+                  {todo?.list[0]?.wind?.speed}°
+                </span>
+              </div>
+              <div className="flex justify-between p-1">
+                <div className="flex items-center">
+                  <WindIcon
+                    size={18}
+                    color="#fafafa"
+                    weight="bold"
+                    className="mr-1"
+                  />
+                  <span className="text-white text-md font-medium ">
+                    Wind Gust
+                  </span>
                 </div>
                 <span className="text-white text-md font-medium ">
                   19 km/hr
                 </span>
-              </div>
-              <div className="flex justify-around p-1">
-                <div className="flex items-center">
-                  <DropIcon
-                    size={16}
-                    color="#fafafa"
-                    weight="bold"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-sm/4 font-medium ">
-                    Humidity
-                  </span>
-                </div>
-                <span className="text-white text-sm/4 font-medium ">22 %</span>
               </div>
             </div>
           </div>
