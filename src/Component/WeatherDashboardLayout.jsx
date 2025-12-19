@@ -23,8 +23,9 @@ import {
   DropSimpleIcon,
   EyeIcon,
   CrosshairIcon,
+  FishSimpleIcon,
+  ParkIcon,
 } from "@phosphor-icons/react";
-import { Crosshair }  from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import WeatherCard from "./WeatherCard";
 import SunriseSunsetCard from "./SunriseSunsetCard";
@@ -236,8 +237,25 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <SunriseSunsetCard todo={todo} />
-                <RowAfterSunrise todo={todo} item="Pressure" unit="Pa" icon='CrossHairIcon'/>
-                <RowAfterSunrise todo={todo} item="Pressure" unit="Pa" />
+
+                <RowAfterSunrise
+                  value={todo?.list[0]?.main?.pressure}
+                  item="Pressure"
+                  unit="Pa"
+                  icon={CrosshairIcon}
+                />
+                <RowAfterSunrise
+                  value={todo?.list[0]?.main?.sea_level}
+                  item="Sea Level"
+                  unit="hPa"
+                  icon={FishSimpleIcon}
+                />
+                <RowAfterSunrise
+                  value={todo?.list[0]?.main?.grnd_level}
+                  item="Ground Level"
+                  unit="hPa"
+                  icon={ParkIcon}
+                />
               </div>
             </div>
           </div>
