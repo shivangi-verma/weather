@@ -130,6 +130,7 @@ export default function WeatherDashboardLayout() {
     <>
       <div className="min-h-screen flex flex-col lg:flex-row">
         <div className="left flex flex-col bg-[#f0f5ff] w-full lg:w-[70%] px-4 sm:px-6 md:px-10 lg:px-20">
+          {/* greetings */}
           <div className="greetings py-6 lg:py-12 flex flex-col order-1 ">
             <h1 className="text-3xl  sm:text-4xl lg:text-5xl text-[#5E8CF6] font-bold">
               {formattedTime}
@@ -141,7 +142,200 @@ export default function WeatherDashboardLayout() {
               {greeting()}, Pumpkin!
             </span>
           </div>
-          <div className="weather-cards flex   justify-center  lg:justify-between   gap-4 py-6 order-3">
+
+          {/* for mobile right side first hidden on lg but visible on mobile  */}
+
+          <div className=" right  flex flex-col  w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 lg:bg-white gap-4 order-2 lg:hidden ">
+            <div className="top flex mt-4 justify-center">
+              <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 shadow">
+                {/* <MagnifyingGlassIcon size={28} color="#acb6df" /> */}
+                {/* <input
+                type="text"
+                placeholder="Search City..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="text-[#acb6df] px-1 focus:outline-hidden "
+              /> */}
+                <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 w-full max-w-xs ">
+                  <MagnifyingGlassIcon
+                    size={28}
+                    color="#acb6df"
+                    className="shrink-0"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Search City..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="text-[#acb6df] px-1 focus:outline-none bg-transparent w-full"
+                  />
+                </div>
+              </div>
+              <button
+                className="bg-[#96a6e0] text-white font-medium p-2 m-2 rounded-xl px-4 hover:bg-[#6b769f] cursor-pointer"
+                onClick={() => setCity(search)}
+              >
+                Search
+              </button>
+            </div>
+            <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2">
+              <img src={cloudy_day} alt="" className="w-34 h-34" />
+              <span className="text-white font-medium text-5xl tracking-tighter">
+                {currentTemp ?? "--"}°C
+              </span>
+              <span className="text-white font-medium text-xl ">
+                {todo?.list[0]?.weather[0]?.main}
+              </span>
+              {/* <span className="text-white font-medium text-xl ">
+              Today 15, December
+            </span> */}
+              <span className="text-white font-medium text-xl flex justify-center items-center">
+                <MapPinLineIcon size={20} className="mr-1" weight="fill" />
+                {todo?.city?.name}
+              </span>
+              <div className="w-full p-2 ">
+                <div className="flex justify-around p-1">
+                  <div className="flex justify-center items-center">
+                    <FeatherIcon
+                      size={18}
+                      color="#fff"
+                      weight="fill"
+                      className="mr-1"
+                    />
+                    <span className="text-white text-md font-medium ">
+                      Feels Like
+                    </span>
+                  </div>
+                  <span className="text-white text-md font-medium ">
+                    {todo?.list[0]?.main?.feels_like}°C
+                  </span>
+                </div>
+                <div className="flex justify-around p-1">
+                  <div className="flex items-center justify-center">
+                    <SnowflakeIcon
+                      size={20}
+                      color="#fff"
+                      weight="fill"
+                      className="mr-1"
+                    />
+                    <span className="text-white text-md font-medium ">
+                      Min Temp
+                    </span>
+                  </div>
+                  <span className="text-white text-md font-medium ">
+                    {todo?.list[0]?.main?.temp_min}°C
+                  </span>
+                </div>
+                <div className="flex justify-around p-1">
+                  <div className="flex items-center justify-center">
+                    <FireIcon
+                      size={20}
+                      color="#fff"
+                      weight="fill"
+                      className="mr-1"
+                    />
+                    <span className="text-white text-md font-medium ">
+                      Max Temp
+                    </span>
+                  </div>
+                  <span className="text-white text-md font-medium ">
+                    {todo?.list[0]?.main?.temp_max}°C
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
+              <div className="w-full p-2 ">
+                <div className="flex justify-between p-1">
+                  <div className="flex items-center">
+                    <SpeedometerIcon
+                      size={18}
+                      color="#fff"
+                      weight="fill"
+                      className="mr-1"
+                    />
+                    <span className="text-white text-md font-medium ">
+                      Wind Speed
+                    </span>
+                  </div>
+                  <span className="text-white text-md font-medium ">
+                    {todo?.list[0]?.wind?.speed} m/s
+                  </span>
+                </div>
+                <div className="flex justify-between p-1">
+                  <div className="flex items-center">
+                    <AngleIcon
+                      size={18}
+                      color="#fff"
+                      weight="bold"
+                      className="mr-1"
+                    />
+                    <span className="text-white text-md font-medium ">
+                      Wind Degree
+                    </span>
+                  </div>
+                  <span className="text-white text-md font-medium ">
+                    {todo?.list[0]?.wind?.speed}°
+                  </span>
+                </div>
+                <div className="flex justify-between p-1">
+                  <div className="flex items-center">
+                    <WindIcon
+                      size={18}
+                      color="#fff"
+                      weight="bold"
+                      className="mr-1"
+                    />
+                    <span className="text-white text-md font-medium ">
+                      Wind Gust
+                    </span>
+                  </div>
+                  <span className="text-white text-md font-medium ">
+                    19 m/s
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="bottom bg-linear-to-r from-[#FEC57D] to-[#FDAE52] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
+              <div className="w-full p-2 ">
+                <div className="flex justify-between p-1">
+                  <div className="flex items-center justify-center">
+                    <DropIcon
+                      size={18}
+                      color="#fff"
+                      weight="fill"
+                      className="mr-1"
+                    />
+                    <span className="text-white text-md font-medium ">
+                      Humidity
+                    </span>
+                  </div>
+                  <span className="text-white text-md font-medium ">
+                    {todo?.list[0]?.main?.humidity}%
+                  </span>
+                </div>
+                <div className="flex justify-between p-1">
+                  <div className="flex items-center justify-center">
+                    <EyeIcon
+                      size={18}
+                      color="#fff"
+                      weight="fill"
+                      className="mr-1"
+                    />
+                    <span className="text-white text-md font-medium ">
+                      Visibility
+                    </span>
+                  </div>
+                  <span className="text-white text-md font-medium ">
+                    {todo?.list[0]?.visibility} m
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* weather-cards */}
+          <div className="weather-cards flex justify-center lg:justify-between  gap-4 py-6 order-3">
             {todo?.list?.map((item, index) => {
               let timestamp = item.dt * 1000; // Convert to milliseconds
               let date = new Date(timestamp);
@@ -159,9 +353,10 @@ export default function WeatherDashboardLayout() {
                 );
             })}
           </div>
-          <div className="containers-aqi-sunset flex-col lg:flex-row justify-between gap-4 mb-6 order-4">
+          {/* containers-aqi-sunset */}
+          <div className="containers-aqi-sunset flex flex-col lg:flex-row justify-between gap-4 mb-6 order-4">
             {/* left side aqi and monthly rain  */}
-            <div className="flex flex-col gap-4 w-full lg:w-1/2 shadow  rounded-2xl ">
+            <div className="aqi-container flex flex-col gap-4 w-full lg:w-1/2 shadow  rounded-2xl mb-4">
               {/* air quality index  */}
               <div className="aqi-container bg-white rounded-2xl p-6 w-full">
                 <div className="aqi-heading flex justify-between">
@@ -229,7 +424,7 @@ export default function WeatherDashboardLayout() {
               </div>
             </div>
             {/* right side sunrise and sunset  */}
-            <div className="sunrise-sunset-container w-full lg:w-1/2 flex flex-col gap-4 justify-between ">
+            <div className="sunrise-sunset-container  flex flex-col gap-4 w-full lg:w-1/2 shadow  rounded-2xl mb-4">
               <div className="bg-white rounded-2xl p-6 shadow flex flex-col justify-between ">
                 <div className="sunrise-sunset-heading m-2">
                   <span className="text-2xl font-semibold">
@@ -260,31 +455,21 @@ export default function WeatherDashboardLayout() {
             </div>
           </div>
         </div>
-        <div className=" right  flex flex-col  w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 bg-white gap-4 order-2 lg:order-0 ">
+        <div className="right-side flex flex-col w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 bg-white lg:block lg:order-0 lg:gap-4 ">
           <div className="top flex mt-4 justify-center">
-            <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2">
-              <MagnifyingGlassIcon size={28} color="#acb6df" />
-              {/* <input
+            <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 w-full max-w-xs">
+              <MagnifyingGlassIcon
+                size={28}
+                color="#acb6df"
+                className="shrink-0"
+              />
+              <input
                 type="text"
                 placeholder="Search City..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="text-[#acb6df] px-1 focus:outline-hidden "
-              /> */}
-              <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 w-full max-w-xs">
-                <MagnifyingGlassIcon
-                  size={28}
-                  color="#acb6df"
-                  className="shrink-0"
-                />
-                <input
-                  type="text"
-                  placeholder="Search City..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="text-[#acb6df] px-1 focus:outline-none bg-transparent w-full"
-                />
-              </div>
+                className="text-[#acb6df] px-1 focus:outline-none bg-transparent w-full"
+              />
             </div>
             <button
               className="bg-[#96a6e0] text-white font-medium p-2 m-2 rounded-xl px-4 hover:bg-[#6b769f] cursor-pointer"
