@@ -33,18 +33,27 @@ import SunriseSunsetRow from "./SunriseSunsetRow";
 import AqiRowCard from "./AqiRowCard";
 import RowAfterSunrise from "./RowAfterSunrise";
 
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 export default function WeatherDashboardLayout() {
   const [todo, setTodo] = useState(null);
   const [aqi, setAqi] = useState(null);
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
+  const [city, setCity] = useState("Modena");
+  const [search, setSearch] = useState("");
+
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&units=metric&appid=${API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {
         setTodo(data);
+        setLoading(false);
       });
   }, []);
 
@@ -101,9 +110,6 @@ export default function WeatherDashboardLayout() {
       ? todo.list[0].main.temp.toFixed(1)
       : null;
 
-  const [city, setCity] = useState("Modena");
-  const [search, setSearch] = useState("");
-
   useEffect(() => {
     if (!city) return;
 
@@ -139,7 +145,7 @@ export default function WeatherDashboardLayout() {
               {formattedDate}
             </span>
             <span className="text-4xl  sm:text-5xl lg:text-7xl  text-[#5E8CF6] font-medium tracking-tighter">
-              {greeting()}, Pumpkin!
+              {greeting() || <Skeleton />}, Pumpkin!
             </span>
           </div>
 
@@ -336,22 +342,32 @@ export default function WeatherDashboardLayout() {
 
           {/* weather-cards */}
           <div className="weather-cards flex justify-center lg:justify-between  gap-4 py-6 order-3">
-            {todo?.list?.map((item, index) => {
-              let timestamp = item.dt * 1000; // Convert to milliseconds
-              let date = new Date(timestamp);
+            {loading ? (
+              <>
+                <Skeleton height={150} width={100} />
+                <Skeleton height={150} width={100} />
+                <Skeleton height={150} width={100} />
+                <Skeleton height={150} width={100} />
+                <Skeleton height={150} width={100} />
+              </>
+            ) : (
+              todo?.list?.map((item, index) => {
+                let timestamp = item.dt * 1000; // Convert to milliseconds
+                let date = new Date(timestamp);
 
-              if (date.getUTCHours() == "12")
-                return (
-                  <WeatherCard
-                    key={index}
-                    // src={air}
-                    src={getWeatherIcon(item?.weather[0]?.main)}
-                    weather={item?.weather[0]?.main}
-                    day={date.toUTCString().slice(0, 3)}
-                    temp={item?.main?.temp}
-                  />
-                );
-            })}
+                if (date.getUTCHours() == "12")
+                  return (
+                    <WeatherCard
+                      key={index}
+                      // src={air}
+                      src={getWeatherIcon(item?.weather[0]?.main)}
+                      weather={item?.weather[0]?.main}
+                      day={date.toUTCString().slice(0, 3)}
+                      temp={item?.main?.temp}
+                    />
+                  );
+              })
+            )}
           </div>
           {/* containers-aqi-sunset */}
           <div className="containers-aqi-sunset flex flex-col lg:flex-row justify-between gap-4 mb-6 order-4">
@@ -481,7 +497,12 @@ export default function WeatherDashboardLayout() {
           <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2 my-4">
             <img src={cloudy_day} alt="" className="w-34 h-34" />
             <span className="text-white font-medium text-5xl tracking-tighter">
-              {currentTemp ?? "--"}°C
+              {loading ? (
+                <Skeleton width={100} baseColor="#5E8CF6" />
+              ) : (
+                currentTemp ?? "--"
+              )}
+              °C
             </span>
             <span className="text-white font-medium text-xl ">
               {todo?.list[0]?.weather[0]?.main}
