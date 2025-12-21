@@ -141,7 +141,7 @@ export default function WeatherDashboardLayout() {
               {greeting()}, Pumpkin!
             </span>
           </div>
-          <div className="weather-cards flex  justify-between gap-4 py-6">
+          <div className="weather-cards flex   justify-center  lg:justify-between   gap-4 py-6 order-3">
             {todo?.list?.map((item, index) => {
               let timestamp = item.dt * 1000; // Convert to milliseconds
               let date = new Date(timestamp);
@@ -159,9 +159,9 @@ export default function WeatherDashboardLayout() {
                 );
             })}
           </div>
-          <div className="containers-aqi-sunset flex justify-between gap-4 mb-6">
+          <div className="containers-aqi-sunset flex-col lg:flex-row justify-between gap-4 mb-6 order-4">
             {/* left side aqi and monthly rain  */}
-            <div className="flex flex-col gap-4 w-1/2 shadow  rounded-2xl ">
+            <div className="flex flex-col gap-4 w-full lg:w-1/2 shadow  rounded-2xl ">
               {/* air quality index  */}
               <div className="aqi-container bg-white rounded-2xl p-6 w-full">
                 <div className="aqi-heading flex justify-between">
@@ -229,7 +229,7 @@ export default function WeatherDashboardLayout() {
               </div>
             </div>
             {/* right side sunrise and sunset  */}
-            <div className="sunrise-sunset-container w-1/2 flex flex-col gap-4 justify-between ">
+            <div className="sunrise-sunset-container w-full lg:w-1/2 flex flex-col gap-4 justify-between ">
               <div className="bg-white rounded-2xl p-6 shadow flex flex-col justify-between ">
                 <div className="sunrise-sunset-heading m-2">
                   <span className="text-2xl font-semibold">
@@ -264,13 +264,27 @@ export default function WeatherDashboardLayout() {
           <div className="top flex mt-4 justify-center">
             <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2">
               <MagnifyingGlassIcon size={28} color="#acb6df" />
-              <input
+              {/* <input
                 type="text"
                 placeholder="Search City..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="text-[#acb6df] px-1 focus:outline-hidden "
-              />
+              /> */}
+              <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 w-full max-w-xs">
+                <MagnifyingGlassIcon
+                  size={28}
+                  color="#acb6df"
+                  className="shrink-0"
+                />
+                <input
+                  type="text"
+                  placeholder="Search City..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="text-[#acb6df] px-1 focus:outline-none bg-transparent w-full"
+                />
+              </div>
             </div>
             <button
               className="bg-[#96a6e0] text-white font-medium p-2 m-2 rounded-xl px-4 hover:bg-[#6b769f] cursor-pointer"
