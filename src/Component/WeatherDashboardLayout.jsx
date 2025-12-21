@@ -128,16 +128,16 @@ export default function WeatherDashboardLayout() {
 
   return (
     <>
-      <div className="min-container flex ">
-        <div className="left flex flex-col bg-[#f0f5ff]   w-7/10 px-20">
-          <div className="greetings py-12 flex flex-col">
-            <h1 className="text-5xl text-[#5E8CF6] font-bold">
+      <div className="min-h-screen flex flex-col lg:flex-row">
+        <div className="left flex flex-col bg-[#f0f5ff] w-full lg:w-[70%] px-4 sm:px-6 md:px-10 lg:px-20">
+          <div className="greetings py-6 lg:py-12 flex flex-col order-1 ">
+            <h1 className="text-3xl  sm:text-4xl lg:text-5xl text-[#5E8CF6] font-bold">
               {formattedTime}
             </h1>
-            <span className="text-sm/6 font-medium p-2 text-gray-500">
+            <span className="text-sm  sm:text-base  font-medium p-2 text-gray-500">
               {formattedDate}
             </span>
-            <span className="text-7xl text-[#5E8CF6] font-medium tracking-tighter">
+            <span className="text-4xl  sm:text-5xl lg:text-7xl  text-[#5E8CF6] font-medium tracking-tighter">
               {greeting()}, Pumpkin!
             </span>
           </div>
@@ -260,7 +260,7 @@ export default function WeatherDashboardLayout() {
             </div>
           </div>
         </div>
-        <div className="right w-3/10 flex flex-col bg-white px-20 gap-4">
+        <div className=" right  flex flex-col  w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 bg-white gap-4 order-2 lg:order-0 ">
           <div className="top flex mt-4 justify-center">
             <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2">
               <MagnifyingGlassIcon size={28} color="#acb6df" />
