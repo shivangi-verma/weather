@@ -456,7 +456,7 @@ export default function WeatherDashboardLayout() {
           </div>
         </div>
         <div className="right-side flex flex-col w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 bg-white lg:block lg:order-0 lg:gap-4 ">
-          <div className="top flex mt-4 justify-center">
+          <div className="top flex my-4 justify-center">
             <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 w-full max-w-xs">
               <MagnifyingGlassIcon
                 size={28}
@@ -478,7 +478,7 @@ export default function WeatherDashboardLayout() {
               Search
             </button>
           </div>
-          <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2">
+          <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2 my-4">
             <img src={cloudy_day} alt="" className="w-34 h-34" />
             <span className="text-white font-medium text-5xl tracking-tighter">
               {currentTemp ?? "--"}°C
@@ -544,7 +544,7 @@ export default function WeatherDashboardLayout() {
               </div>
             </div>
           </div>
-          <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
+          <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2 my-4">
             <div className="w-full p-2 ">
               <div className="flex justify-between p-1">
                 <div className="flex items-center">
@@ -594,7 +594,7 @@ export default function WeatherDashboardLayout() {
               </div>
             </div>
           </div>
-          <div className="bottom bg-linear-to-r from-[#FEC57D] to-[#FDAE52] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
+          <div className="bottom bg-linear-to-r from-[#FEC57D] to-[#FDAE52] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2 my-4">
             <div className="w-full p-2 ">
               <div className="flex justify-between p-1">
                 <div className="flex items-center justify-center">
