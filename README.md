@@ -1,8 +1,12 @@
 # 🌦️ Weather Dashboard
+<p align="center">
+  <img src="./public/preview.png" alt="Weather Dashboard Preview" width="100%" />
+</p>
+
+ 
+![View Counter](https://komarev.com/ghpvc/?username=shivangi-verma&label=Project%20Views&color=blue&style=flat)
 
 A modern, responsive weather dashboard built with **React** that displays real-time weather forecasts, air quality data, and detailed atmospheric information using the **OpenWeather API**.
-
-![View Counter](https://komarev.com/ghpvc/?username=shivangi-verma&label=Project%20Views&color=blue&style=flat)
 
 ---
 
