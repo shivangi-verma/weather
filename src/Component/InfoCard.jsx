@@ -1,7 +1,7 @@
 function InfoCard({ gradient, rows }) {
   return (
     <div
-      className={`rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2 ${gradient}`}
+      className={`rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2 ${gradient} shadow`}
     >
       <div className="w-full p-2">
         {rows.map((row, index) => (
