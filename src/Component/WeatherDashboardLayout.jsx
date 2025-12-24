@@ -321,11 +321,7 @@ export default function WeatherDashboardLayout() {
             forecast={forecast}
             loading={loading}
             currentTemp={currentTemp}
-            MapPinLineIcon={MapPinLineIcon}
-            SnowflakeIcon={SnowflakeIcon}
-            FireIcon={FireIcon}
-            FeatherIcon={FeatherIcon}
-            cloudy_day={cloudy_day}
+           
           />
 
           <InfoCard
