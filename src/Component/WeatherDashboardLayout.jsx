@@ -36,7 +36,7 @@ import CurrentWeatherCard from "./CurrentWeatherCard";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import InfoCard from "./infoCard";
+import InfoCard from "./InfoCard";
 
 export default function WeatherDashboardLayout() {
   const [forecast, setForecast] = useState(null);
@@ -356,56 +356,6 @@ export default function WeatherDashboardLayout() {
             ]}
           />
 
-          {/* <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2 my-4">
-            <div className="w-full p-2 ">
-              <div className="flex justify-between p-1">
-                <div className="flex items-center">
-                  <SpeedometerIcon
-                    size={18}
-                    color="#fff"
-                    weight="fill"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">
-                    Wind Speed
-                  </span>
-                </div>
-                <span className="text-white text-md font-medium ">
-                  {forecast?.list[0]?.wind?.speed} m/s
-                </span>
-              </div>
-              <div className="flex justify-between p-1">
-                <div className="flex items-center">
-                  <AngleIcon
-                    size={18}
-                    color="#fff"
-                    weight="bold"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">
-                    Wind Degree
-                  </span>
-                </div>
-                <span className="text-white text-md font-medium ">
-                  {forecast?.list[0]?.wind?.speed}°
-                </span>
-              </div>
-              <div className="flex justify-between p-1">
-                <div className="flex items-center">
-                  <WindIcon
-                    size={18}
-                    color="#fff"
-                    weight="bold"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">
-                    Wind Gust
-                  </span>
-                </div>
-                <span className="text-white text-md font-medium ">19 m/s</span>
-              </div>
-            </div>
-          </div> */}
           <InfoCard
             gradient="bg-linear-to-r from-[#FEC57D] to-[#FDAE52]"
             rows={[
@@ -420,7 +370,7 @@ export default function WeatherDashboardLayout() {
                 value: `${forecast?.list[0]?.visibility} m`,
               },
             ]}
-    
+          />
         </div>
       </div>
     </>

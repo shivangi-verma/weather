@@ -1,5 +1,25 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import {
+  MapPinLineIcon,
+  SunIcon,
+  SunHorizonIcon,
+  MoonStarsIcon,
+  MagnifyingGlassIcon,
+  DropIcon,
+  WindIcon,
+  SnowflakeIcon,
+  FireIcon,
+  ThermometerColdIcon,
+  AngleIcon,
+  SpeedometerIcon,
+  FeatherIcon,
+  DropSimpleIcon,
+  EyeIcon,
+  CrosshairIcon,
+  FishSimpleIcon,
+  ParkIcon,
+} from "@phosphor-icons/react";
 
 function CurrentWeatherCard({
   forecast,
