@@ -32,9 +32,11 @@ import SunriseSunsetCard from "./SunriseSunsetCard";
 import SunriseSunsetRow from "./SunriseSunsetRow";
 import AqiRowCard from "./AqiRowCard";
 import RowAfterSunrise from "./RowAfterSunrise";
+import CurrentWeatherCard from "./CurrentWeatherCard";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import InfoCard from "./infoCard";
 
 export default function WeatherDashboardLayout() {
   const [forecast, setForecast] = useState(null);
@@ -45,29 +47,6 @@ export default function WeatherDashboardLayout() {
   const [search, setSearch] = useState("");
 
   const [loading, setLoading] = useState(true);
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetch(
-  //     `https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&units=metric&appid=${API_KEY}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setForecast(data);
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  // aqi
-
-  // useEffect(() => {
-  //   fetch(
-  //     `http://api.openweathermap.org/data/2.5/air_pollution?lat=44.34&lon=10.99&appid=${API_KEY}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setAqi(data);
-  //     });
-  // }, []);
 
   function getWeatherIcon(condition) {
     const iconMap = {
@@ -104,86 +83,58 @@ export default function WeatherDashboardLayout() {
     return "Good Night";
   }
 
-  // const currentTemp = (forecast?.list?.[0]?.main?.temp).toFixed(1);
   const currentTemp =
     typeof forecast?.list?.[0]?.main?.temp === "number"
       ? forecast.list[0].main.temp.toFixed(1)
       : null;
 
-  // useEffect(() => {
-  //   if (!city) return;
+  useEffect(() => {
+    if (!city) return;
 
-  //   fetch(
-  //     `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => setForecast(data));
-  // }, [city]);
+    const fetchForecast = async () => {
+      try {
+        setLoading(true);
 
-  // useEffect(() => {
-  //   if (!forecast?.city?.coord) return;
+        const res = await fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
+        );
 
-  //   const { lat, lon } = forecast.city.coord;
+        if (!res.ok) throw new Error("Failed to fetch forecast");
 
-  //   fetch(
-  //     `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => setAqi(data));
-  // }, [forecast]);
+        const data = await res.json();
+        setForecast(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-
+    fetchForecast();
+  }, [city, API_KEY]);
 
   useEffect(() => {
-  if (!city) return;
+    if (!forecast?.city?.coord) return;
 
-  const fetchForecast = async () => {
-    try {
-      setLoading(true);
+    const { lat, lon } = forecast.city.coord;
 
-      const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
-      );
+    const fetchAqi = async () => {
+      try {
+        const res = await fetch(
+          `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+        );
 
-      if (!res.ok) throw new Error("Failed to fetch forecast");
+        if (!res.ok) throw new Error("Failed to fetch AQI");
 
-      const data = await res.json();
-      setForecast(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        const data = await res.json();
+        setAqi(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  fetchForecast();
-}, [city, API_KEY]);
-
-
-useEffect(() => {
-  if (!forecast?.city?.coord) return;
-
-  const { lat, lon } = forecast.city.coord;
-
-  const fetchAqi = async () => {
-    try {
-      const res = await fetch(
-        `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-      );
-
-      if (!res.ok) throw new Error("Failed to fetch AQI");
-
-      const data = await res.json();
-      setAqi(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  fetchAqi();
-}, [forecast, API_KEY]);
-
-
+    fetchAqi();
+  }, [forecast, API_KEY]);
 
   return (
     <>
@@ -203,194 +154,17 @@ useEffect(() => {
           </div>
 
           {/* for mobile right side first hidden on lg but visible on mobile  */}
-
           <div className=" right  flex flex-col  w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 lg:bg-white gap-4 order-2 lg:hidden ">
-            <div className="top flex mt-4 justify-center">
-              <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 shadow">
-                {/* <MagnifyingGlassIcon size={28} color="#acb6df" /> */}
-                {/* <input
-                type="text"
-                placeholder="Search City..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="text-[#acb6df] px-1 focus:outline-hidden "
-              /> */}
-                <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 w-full max-w-xs ">
-                  <MagnifyingGlassIcon
-                    size={28}
-                    color="#acb6df"
-                    className="shrink-0"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Search City..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="text-[#acb6df] px-1 focus:outline-none bg-transparent w-full"
-                  />
-                </div>
-              </div>
-              <button
-                className="bg-[#96a6e0] text-white font-medium p-2 m-2 rounded-xl px-4 hover:bg-[#6b769f] cursor-pointer"
-                onClick={() => setCity(search)}
-              >
-                Search
-              </button>
-            </div>
-            <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2">
-              <img src={cloudy_day} alt="" className="w-34 h-34" />
-              <span className="text-white font-medium text-5xl tracking-tighter">
-                {currentTemp ?? "--"}°C
-              </span>
-              <span className="text-white font-medium text-xl ">
-                {forecast?.list[0]?.weather[0]?.main}
-              </span>
-              {/* <span className="text-white font-medium text-xl ">
-              Today 15, December
-            </span> */}
-              <span className="text-white font-medium text-xl flex justify-center items-center">
-                <MapPinLineIcon size={20} className="mr-1" weight="fill" />
-                {forecast?.city?.name}
-              </span>
-              <div className="w-full p-2 ">
-                <div className="flex justify-around p-1">
-                  <div className="flex justify-center items-center">
-                    <FeatherIcon
-                      size={18}
-                      color="#fff"
-                      weight="fill"
-                      className="mr-1"
-                    />
-                    <span className="text-white text-md font-medium ">
-                      Feels Like
-                    </span>
-                  </div>
-                  <span className="text-white text-md font-medium ">
-                    {forecast?.list[0]?.main?.feels_like}°C
-                  </span>
-                </div>
-                <div className="flex justify-around p-1">
-                  <div className="flex items-center justify-center">
-                    <SnowflakeIcon
-                      size={20}
-                      color="#fff"
-                      weight="fill"
-                      className="mr-1"
-                    />
-                    <span className="text-white text-md font-medium ">
-                      Min Temp
-                    </span>
-                  </div>
-                  <span className="text-white text-md font-medium ">
-                    {forecast?.list[0]?.main?.temp_min}°C
-                  </span>
-                </div>
-                <div className="flex justify-around p-1">
-                  <div className="flex items-center justify-center">
-                    <FireIcon
-                      size={20}
-                      color="#fff"
-                      weight="fill"
-                      className="mr-1"
-                    />
-                    <span className="text-white text-md font-medium ">
-                      Max Temp
-                    </span>
-                  </div>
-                  <span className="text-white text-md font-medium ">
-                    {forecast?.list[0]?.main?.temp_max}°C
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
-              <div className="w-full p-2 ">
-                <div className="flex justify-between p-1">
-                  <div className="flex items-center">
-                    <SpeedometerIcon
-                      size={18}
-                      color="#fff"
-                      weight="fill"
-                      className="mr-1"
-                    />
-                    <span className="text-white text-md font-medium ">
-                      Wind Speed
-                    </span>
-                  </div>
-                  <span className="text-white text-md font-medium ">
-                    {forecast?.list[0]?.wind?.speed} m/s
-                  </span>
-                </div>
-                <div className="flex justify-between p-1">
-                  <div className="flex items-center">
-                    <AngleIcon
-                      size={18}
-                      color="#fff"
-                      weight="bold"
-                      className="mr-1"
-                    />
-                    <span className="text-white text-md font-medium ">
-                      Wind Degree
-                    </span>
-                  </div>
-                  <span className="text-white text-md font-medium ">
-                    {forecast?.list[0]?.wind?.speed}°
-                  </span>
-                </div>
-                <div className="flex justify-between p-1">
-                  <div className="flex items-center">
-                    <WindIcon
-                      size={18}
-                      color="#fff"
-                      weight="bold"
-                      className="mr-1"
-                    />
-                    <span className="text-white text-md font-medium ">
-                      Wind Gust
-                    </span>
-                  </div>
-                  <span className="text-white text-md font-medium ">
-                    19 m/s
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="bottom bg-linear-to-r from-[#FEC57D] to-[#FDAE52] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2">
-              <div className="w-full p-2 ">
-                <div className="flex justify-between p-1">
-                  <div className="flex items-center justify-center">
-                    <DropIcon
-                      size={18}
-                      color="#fff"
-                      weight="fill"
-                      className="mr-1"
-                    />
-                    <span className="text-white text-md font-medium ">
-                      Humidity
-                    </span>
-                  </div>
-                  <span className="text-white text-md font-medium ">
-                    {forecast?.list[0]?.main?.humidity}%
-                  </span>
-                </div>
-                <div className="flex justify-between p-1">
-                  <div className="flex items-center justify-center">
-                    <EyeIcon
-                      size={18}
-                      color="#fff"
-                      weight="fill"
-                      className="mr-1"
-                    />
-                    <span className="text-white text-md font-medium ">
-                      Visibility
-                    </span>
-                  </div>
-                  <span className="text-white text-md font-medium ">
-                    {forecast?.list[0]?.visibility} m
-                  </span>
-                </div>
-              </div>
-            </div>
+            <CurrentWeatherCard
+              forecast={forecast}
+              loading={loading}
+              currentTemp={currentTemp}
+              MapPinLineIcon={MapPinLineIcon}
+              SnowflakeIcon={SnowflakeIcon}
+              FireIcon={FireIcon}
+              FeatherIcon={FeatherIcon}
+              cloudy_day={cloudy_day}
+            />
           </div>
 
           {/* weather-cards */}
@@ -547,78 +321,42 @@ useEffect(() => {
               Search
             </button>
           </div>
-          <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2 my-4">
-            <img src={cloudy_day} alt="" className="w-34 h-34" />
-            <span className="text-white font-medium text-5xl tracking-tighter">
-              {loading ? (
-                <Skeleton width={100} baseColor="#5E8CF6" />
-              ) : (
-                currentTemp ?? "--"
-              )}
-              °C
-            </span>
-            <span className="text-white font-medium text-xl ">
-              {forecast?.list[0]?.weather[0]?.main}
-            </span>
-            {/* <span className="text-white font-medium text-xl ">
-              Today 15, December
-            </span> */}
-            <span className="text-white font-medium text-xl flex justify-center items-center">
-              <MapPinLineIcon size={20} className="mr-1" weight="fill" />
-              {forecast?.city?.name}
-            </span>
-            <div className="w-full p-2 ">
-              <div className="flex justify-around p-1">
-                <div className="flex justify-center items-center">
-                  <FeatherIcon
-                    size={18}
-                    color="#fff"
-                    weight="fill"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">
-                    Feels Like
-                  </span>
-                </div>
-                <span className="text-white text-md font-medium ">
-                  {forecast?.list[0]?.main?.feels_like}°C
-                </span>
-              </div>
-              <div className="flex justify-around p-1">
-                <div className="flex items-center justify-center">
-                  <SnowflakeIcon
-                    size={20}
-                    color="#fff"
-                    weight="fill"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">
-                    Min Temp
-                  </span>
-                </div>
-                <span className="text-white text-md font-medium ">
-                  {forecast?.list[0]?.main?.temp_min}°C
-                </span>
-              </div>
-              <div className="flex justify-around p-1">
-                <div className="flex items-center justify-center">
-                  <FireIcon
-                    size={20}
-                    color="#fff"
-                    weight="fill"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">
-                    Max Temp
-                  </span>
-                </div>
-                <span className="text-white text-md font-medium ">
-                  {forecast?.list[0]?.main?.temp_max}°C
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2 my-4">
+
+          <CurrentWeatherCard
+            forecast={forecast}
+            loading={loading}
+            currentTemp={currentTemp}
+            MapPinLineIcon={MapPinLineIcon}
+            SnowflakeIcon={SnowflakeIcon}
+            FireIcon={FireIcon}
+            FeatherIcon={FeatherIcon}
+            cloudy_day={cloudy_day}
+          />
+
+          <InfoCard
+            gradient="bg-linear-to-r from-[#FD99BF] to-[#FF699E]"
+            rows={[
+              {
+                icon: SpeedometerIcon,
+                label: "Wind Speed",
+                value: `${forecast?.list[0]?.wind?.speed} m/s`,
+              },
+              {
+                icon: AngleIcon,
+                label: "Wind Degree",
+                value: `${forecast?.list[0]?.wind?.deg}°`,
+              },
+              {
+                icon: WindIcon,
+                label: "Wind Gust",
+                value: forecast?.list[0]?.wind?.gust
+                  ? `${forecast.list[0].wind.gust} m/s`
+                  : "--",
+              },
+            ]}
+          />
+
+          {/* <div className="bottom bg-linear-to-r from-[#FD99BF] to-[#FF699E] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2 my-4">
             <div className="w-full p-2 ">
               <div className="flex justify-between p-1">
                 <div className="flex items-center">
@@ -667,43 +405,22 @@ useEffect(() => {
                 <span className="text-white text-md font-medium ">19 m/s</span>
               </div>
             </div>
-          </div>
-          <div className="bottom bg-linear-to-r from-[#FEC57D] to-[#FDAE52] rounded-2xl flex flex-col justify-center items-center px-4 py-4 gap-2 my-4">
-            <div className="w-full p-2 ">
-              <div className="flex justify-between p-1">
-                <div className="flex items-center justify-center">
-                  <DropIcon
-                    size={18}
-                    color="#fff"
-                    weight="fill"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">
-                    Humidity
-                  </span>
-                </div>
-                <span className="text-white text-md font-medium ">
-                  {forecast?.list[0]?.main?.humidity}%
-                </span>
-              </div>
-              <div className="flex justify-between p-1">
-                <div className="flex items-center justify-center">
-                  <EyeIcon
-                    size={18}
-                    color="#fff"
-                    weight="fill"
-                    className="mr-1"
-                  />
-                  <span className="text-white text-md font-medium ">
-                    Visibility
-                  </span>
-                </div>
-                <span className="text-white text-md font-medium ">
-                  {forecast?.list[0]?.visibility} m
-                </span>
-              </div>
-            </div>
-          </div>
+          </div> */}
+          <InfoCard
+            gradient="bg-linear-to-r from-[#FEC57D] to-[#FDAE52]"
+            rows={[
+              {
+                icon: DropIcon,
+                label: "Humidity",
+                value: `${forecast?.list[0]?.main?.humidity}%`,
+              },
+              {
+                icon: EyeIcon,
+                label: "Visibility",
+                value: `${forecast?.list[0]?.visibility} m`,
+              },
+            ]}
+    
         </div>
       </div>
     </>
