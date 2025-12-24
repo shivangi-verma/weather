@@ -20,17 +20,16 @@ import {
   FishSimpleIcon,
   ParkIcon,
 } from "@phosphor-icons/react";
+import React from "react";
+import rain from "../assets/rain.png";
+import cloudy_day from "../assets/cloudy_day.png";
+import rain_thunder from "../assets/rain_thunder.png";
+import sun from "../assets/sun.png";
+import thunder from "../assets/thunder.png";
+import wind from "../assets/wind.png";
+import air from "../assets/air.png";
 
-function CurrentWeatherCard({
-  forecast,
-  loading,
-  currentTemp,
-  MapPinLineIcon,
-  SnowflakeIcon,
-  FireIcon,
-  FeatherIcon,
-  cloudy_day,
-}) {
+function CurrentWeatherCard({ forecast, loading, currentTemp }) {
   return (
     <>
       <div className="bg-linear-to-r from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2 my-4">
