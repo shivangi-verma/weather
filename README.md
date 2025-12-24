@@ -1,16 +1,68 @@
-# React + Vite
+# 🌦️ Weather Dashboard
+<p align="center">
+  <img src="./public/preview.png" alt="Weather Dashboard Preview" width="100%" />
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ 
+![View Counter](https://komarev.com/ghpvc/?username=shivangi-verma&label=Project%20Views&color=blue&style=flat)
 
-Currently, two official plugins are available:
+A modern, responsive weather dashboard built with **React** that displays real-time weather forecasts, air quality data, and detailed atmospheric information using the **OpenWeather API**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+👉 **Live URL:**  
+[https://app.netlify.com/projects/weatherdashboard3/overview](https://weatherdashboard3.netlify.app/)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ✨ Features
+
+- 🌡️ Current temperature with **feels like**, min & max values  
+- 🌧️ Weather condition icons (custom local assets)  
+- 🌬️ Wind speed, direction, and gusts  
+- 💧 Humidity & visibility cards  
+- 🌅 Sunrise & sunset times  
+- 🌫️ Air Quality Index (AQI) with pollutant breakdown  
+- 📱 Fully responsive (mobile, tablet, desktop)  
+- ⏳ Skeleton loaders while fetching data  
+
+---
+
+## 🛠️ Tech Stack
+
+- **React**
+- **Vite**
+- **Tailwind CSS**
+- **OpenWeather API**
+- **Phosphor Icons**
+- **React Loading Skeleton**
+- **Thiings Icons**
+ 
+## 🧾 Notes
+
+- Weather icons are **locally managed assets**, ensuring consistent visuals independent of API icon availability.
+- The application follows a **component-driven architecture** with clearly separated concerns.
+- Reusable UI components are configured via props for flexibility and scalability.
+- Fully responsive layout built with **Tailwind CSS**, optimized for all screen sizes.
+- Data is sourced from the **OpenWeather API**, including forecast and air quality endpoints.
+
+---
+
+## ✅ Summary
+
+This Weather Dashboard delivers a clean, responsive interface for visualizing weather conditions, forecasts, and air quality data in real time.  
+The project emphasizes maintainability, clarity, and performance while providing a visually engaging user experience.
+
+---
+
+## 🤝 Contributions & Feedback
+
+Contributions, suggestions, and improvements are welcome.  
+If you find this project useful, consider giving it a ⭐ to support continued development.
+
+---
+ 
+
