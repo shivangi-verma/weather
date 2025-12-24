@@ -37,7 +37,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export default function WeatherDashboardLayout() {
-  const [todo, setTodo] = useState(null);
+  const [forecast, setForecast] = useState(null);
   const [aqi, setAqi] = useState(null);
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -45,29 +45,29 @@ export default function WeatherDashboardLayout() {
   const [search, setSearch] = useState("");
 
   const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&units=metric&appid=${API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setTodo(data);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch(
+  //     `https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&units=metric&appid=${API_KEY}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setForecast(data);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   // aqi
 
-  useEffect(() => {
-    fetch(
-      `http://api.openweathermap.org/data/2.5/air_pollution?lat=44.34&lon=10.99&appid=${API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setAqi(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(
+  //     `http://api.openweathermap.org/data/2.5/air_pollution?lat=44.34&lon=10.99&appid=${API_KEY}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setAqi(data);
+  //     });
+  // }, []);
 
   function getWeatherIcon(condition) {
     const iconMap = {
@@ -104,33 +104,86 @@ export default function WeatherDashboardLayout() {
     return "Good Night";
   }
 
-  // const currentTemp = (todo?.list?.[0]?.main?.temp).toFixed(1);
+  // const currentTemp = (forecast?.list?.[0]?.main?.temp).toFixed(1);
   const currentTemp =
-    typeof todo?.list?.[0]?.main?.temp === "number"
-      ? todo.list[0].main.temp.toFixed(1)
+    typeof forecast?.list?.[0]?.main?.temp === "number"
+      ? forecast.list[0].main.temp.toFixed(1)
       : null;
 
+  // useEffect(() => {
+  //   if (!city) return;
+
+  //   fetch(
+  //     `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => setForecast(data));
+  // }, [city]);
+
+  // useEffect(() => {
+  //   if (!forecast?.city?.coord) return;
+
+  //   const { lat, lon } = forecast.city.coord;
+
+  //   fetch(
+  //     `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => setAqi(data));
+  // }, [forecast]);
+
+
+
   useEffect(() => {
-    if (!city) return;
+  if (!city) return;
 
-    fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => setTodo(data));
-  }, [city]);
+  const fetchForecast = async () => {
+    try {
+      setLoading(true);
 
-  useEffect(() => {
-    if (!todo?.city?.coord) return;
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`
+      );
 
-    const { lat, lon } = todo.city.coord;
+      if (!res.ok) throw new Error("Failed to fetch forecast");
 
-    fetch(
-      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => setAqi(data));
-  }, [todo]);
+      const data = await res.json();
+      setForecast(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchForecast();
+}, [city, API_KEY]);
+
+
+useEffect(() => {
+  if (!forecast?.city?.coord) return;
+
+  const { lat, lon } = forecast.city.coord;
+
+  const fetchAqi = async () => {
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      );
+
+      if (!res.ok) throw new Error("Failed to fetch AQI");
+
+      const data = await res.json();
+      setAqi(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchAqi();
+}, [forecast, API_KEY]);
+
+
 
   return (
     <>
@@ -190,14 +243,14 @@ export default function WeatherDashboardLayout() {
                 {currentTemp ?? "--"}°C
               </span>
               <span className="text-white font-medium text-xl ">
-                {todo?.list[0]?.weather[0]?.main}
+                {forecast?.list[0]?.weather[0]?.main}
               </span>
               {/* <span className="text-white font-medium text-xl ">
               Today 15, December
             </span> */}
               <span className="text-white font-medium text-xl flex justify-center items-center">
                 <MapPinLineIcon size={20} className="mr-1" weight="fill" />
-                {todo?.city?.name}
+                {forecast?.city?.name}
               </span>
               <div className="w-full p-2 ">
                 <div className="flex justify-around p-1">
@@ -213,7 +266,7 @@ export default function WeatherDashboardLayout() {
                     </span>
                   </div>
                   <span className="text-white text-md font-medium ">
-                    {todo?.list[0]?.main?.feels_like}°C
+                    {forecast?.list[0]?.main?.feels_like}°C
                   </span>
                 </div>
                 <div className="flex justify-around p-1">
@@ -229,7 +282,7 @@ export default function WeatherDashboardLayout() {
                     </span>
                   </div>
                   <span className="text-white text-md font-medium ">
-                    {todo?.list[0]?.main?.temp_min}°C
+                    {forecast?.list[0]?.main?.temp_min}°C
                   </span>
                 </div>
                 <div className="flex justify-around p-1">
@@ -245,7 +298,7 @@ export default function WeatherDashboardLayout() {
                     </span>
                   </div>
                   <span className="text-white text-md font-medium ">
-                    {todo?.list[0]?.main?.temp_max}°C
+                    {forecast?.list[0]?.main?.temp_max}°C
                   </span>
                 </div>
               </div>
@@ -265,7 +318,7 @@ export default function WeatherDashboardLayout() {
                     </span>
                   </div>
                   <span className="text-white text-md font-medium ">
-                    {todo?.list[0]?.wind?.speed} m/s
+                    {forecast?.list[0]?.wind?.speed} m/s
                   </span>
                 </div>
                 <div className="flex justify-between p-1">
@@ -281,7 +334,7 @@ export default function WeatherDashboardLayout() {
                     </span>
                   </div>
                   <span className="text-white text-md font-medium ">
-                    {todo?.list[0]?.wind?.speed}°
+                    {forecast?.list[0]?.wind?.speed}°
                   </span>
                 </div>
                 <div className="flex justify-between p-1">
@@ -317,7 +370,7 @@ export default function WeatherDashboardLayout() {
                     </span>
                   </div>
                   <span className="text-white text-md font-medium ">
-                    {todo?.list[0]?.main?.humidity}%
+                    {forecast?.list[0]?.main?.humidity}%
                   </span>
                 </div>
                 <div className="flex justify-between p-1">
@@ -333,7 +386,7 @@ export default function WeatherDashboardLayout() {
                     </span>
                   </div>
                   <span className="text-white text-md font-medium ">
-                    {todo?.list[0]?.visibility} m
+                    {forecast?.list[0]?.visibility} m
                   </span>
                 </div>
               </div>
@@ -351,7 +404,7 @@ export default function WeatherDashboardLayout() {
                 <Skeleton height={150} width={100} />
               </>
             ) : (
-              todo?.list?.map((item, index) => {
+              forecast?.list?.map((item, index) => {
                 let timestamp = item.dt * 1000; // Convert to milliseconds
                 let date = new Date(timestamp);
 
@@ -447,22 +500,22 @@ export default function WeatherDashboardLayout() {
                     Sunrise & Sunset
                   </span>
                 </div>
-                <SunriseSunsetCard todo={todo} />
+                <SunriseSunsetCard forecast={forecast} />
 
                 <RowAfterSunrise
-                  value={todo?.list[0]?.main?.pressure}
+                  value={forecast?.list[0]?.main?.pressure}
                   item="Pressure"
                   unit="Pa"
                   icon={CrosshairIcon}
                 />
                 <RowAfterSunrise
-                  value={todo?.list[0]?.main?.sea_level}
+                  value={forecast?.list[0]?.main?.sea_level}
                   item="Sea Level"
                   unit="hPa"
                   icon={FishSimpleIcon}
                 />
                 <RowAfterSunrise
-                  value={todo?.list[0]?.main?.grnd_level}
+                  value={forecast?.list[0]?.main?.grnd_level}
                   item="Ground Level"
                   unit="hPa"
                   icon={ParkIcon}
@@ -505,14 +558,14 @@ export default function WeatherDashboardLayout() {
               °C
             </span>
             <span className="text-white font-medium text-xl ">
-              {todo?.list[0]?.weather[0]?.main}
+              {forecast?.list[0]?.weather[0]?.main}
             </span>
             {/* <span className="text-white font-medium text-xl ">
               Today 15, December
             </span> */}
             <span className="text-white font-medium text-xl flex justify-center items-center">
               <MapPinLineIcon size={20} className="mr-1" weight="fill" />
-              {todo?.city?.name}
+              {forecast?.city?.name}
             </span>
             <div className="w-full p-2 ">
               <div className="flex justify-around p-1">
@@ -528,7 +581,7 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <span className="text-white text-md font-medium ">
-                  {todo?.list[0]?.main?.feels_like}°C
+                  {forecast?.list[0]?.main?.feels_like}°C
                 </span>
               </div>
               <div className="flex justify-around p-1">
@@ -544,7 +597,7 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <span className="text-white text-md font-medium ">
-                  {todo?.list[0]?.main?.temp_min}°C
+                  {forecast?.list[0]?.main?.temp_min}°C
                 </span>
               </div>
               <div className="flex justify-around p-1">
@@ -560,7 +613,7 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <span className="text-white text-md font-medium ">
-                  {todo?.list[0]?.main?.temp_max}°C
+                  {forecast?.list[0]?.main?.temp_max}°C
                 </span>
               </div>
             </div>
@@ -580,7 +633,7 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <span className="text-white text-md font-medium ">
-                  {todo?.list[0]?.wind?.speed} m/s
+                  {forecast?.list[0]?.wind?.speed} m/s
                 </span>
               </div>
               <div className="flex justify-between p-1">
@@ -596,7 +649,7 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <span className="text-white text-md font-medium ">
-                  {todo?.list[0]?.wind?.speed}°
+                  {forecast?.list[0]?.wind?.speed}°
                 </span>
               </div>
               <div className="flex justify-between p-1">
@@ -630,7 +683,7 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <span className="text-white text-md font-medium ">
-                  {todo?.list[0]?.main?.humidity}%
+                  {forecast?.list[0]?.main?.humidity}%
                 </span>
               </div>
               <div className="flex justify-between p-1">
@@ -646,7 +699,7 @@ export default function WeatherDashboardLayout() {
                   </span>
                 </div>
                 <span className="text-white text-md font-medium ">
-                  {todo?.list[0]?.visibility} m
+                  {forecast?.list[0]?.visibility} m
                 </span>
               </div>
             </div>
