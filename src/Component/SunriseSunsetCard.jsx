@@ -8,14 +8,14 @@ import {
   WindIcon,
 } from "@phosphor-icons/react";
 
-function SunriseSunsetCard({ todo }) {
-  const sunrise = todo?.city?.sunrise * 1000;
+function SunriseSunsetCard({ forecast }) {
+  const sunrise = forecast?.city?.sunrise * 1000;
   const dateSunrise = new Date(sunrise);
   const sunriseTime = dateSunrise.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
-  const sunset = todo?.city?.sunset * 1000;
+  const sunset = forecast?.city?.sunset * 1000;
   const dateSunset = new Date(sunset);
   const sunsetTime = dateSunset.toLocaleTimeString([], {
     hour: "2-digit",
@@ -28,7 +28,7 @@ function SunriseSunsetCard({ todo }) {
         <div className="name-title flex items-center  justify-left p-4  ">
           <MapPinIcon size={18} className="mr-1" />
           <span className="text-sm/6 font-medium text-gray-700">
-            {todo?.city?.name}
+            {forecast?.city?.name}
           </span>
         </div>
         <div className="sunrise-sunset flex justify-around">
