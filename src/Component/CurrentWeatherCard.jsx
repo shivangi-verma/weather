@@ -37,7 +37,7 @@ function CurrentWeatherCard({ forecast, loading, currentTemp }) {
   const weatherImage = weatherIconMap[condition] || cloudy_day;
 
   return (
-    <div className="bg-linear-to-r shadow from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2 my-4">
+    <div className="bg-linear-to-r shadow from-[#9CBCFF] to-[#6497FF] rounded-2xl flex flex-col justify-center items-center px-4 py-6 gap-2 ">
       {/* weather icon */}
       <img
         src={weatherImage}

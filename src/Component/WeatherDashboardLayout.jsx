@@ -293,8 +293,9 @@ export default function WeatherDashboardLayout() {
             </div>
           </div>
         </div>
-        <div className="right-side flex flex-col w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 bg-white lg:block lg:order-0 lg:gap-4 ">
-          <div className="top flex my-4 justify-center">
+     <div className="right-side flex flex-col gap-4 w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 bg-white lg:order-0">
+
+          <div className="top flex mt-4 justify-center">
             <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 w-full max-w-xs">
               <MagnifyingGlassIcon
                 size={28}
@@ -321,7 +322,6 @@ export default function WeatherDashboardLayout() {
             forecast={forecast}
             loading={loading}
             currentTemp={currentTemp}
-           
           />
 
           <InfoCard
