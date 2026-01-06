@@ -13,7 +13,7 @@ A modern, responsive weather dashboard built with **React** that displays real-t
 ## 🚀 Live Demo
 
 👉 **Live URL:**  
-[https://app.netlify.com/projects/weatherdashboard3/overview](https://weatherdashboard3.netlify.app/)
+[https://weatherdashboard3.netlify.app/](https://weatherdashboard3.netlify.app/)
 
 
 ---
