@@ -37,6 +37,7 @@ import CurrentWeatherCard from "./CurrentWeatherCard";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import InfoCard from "./InfoCard";
+import Footer from "./Footer";
 
 export default function WeatherDashboardLayout() {
   const [forecast, setForecast] = useState(null);
@@ -149,7 +150,7 @@ export default function WeatherDashboardLayout() {
               {formattedDate}
             </span>
             <span className="text-4xl  sm:text-5xl lg:text-7xl  text-[#5E8CF6] font-medium tracking-tighter">
-              {greeting() || <Skeleton />}, Pumpkin!
+              {greeting() || <Skeleton />}!
             </span>
           </div>
 
@@ -194,9 +195,9 @@ export default function WeatherDashboardLayout() {
           {/* containers-aqi-sunset */}
           <div className="containers-aqi-sunset flex flex-col lg:flex-row justify-between gap-4 mb-6 order-4">
             {/* left side aqi and monthly rain  */}
-            <div className="aqi-container flex flex-col gap-4 w-full lg:w-1/2 shadow  rounded-2xl mb-4">
+            <div className="aqi-container flex flex-col bg-white gap-4 w-full lg:w-1/2 shadow  rounded-2xl mb-4">
               {/* air quality index  */}
-              <div className="aqi-container bg-white rounded-2xl p-6 w-full">
+              <div className="aqi-container  p-6 w-full">
                 <div className="aqi-heading flex justify-between">
                   <span className="text-2xl font-semibold">
                     Air Quality Index
@@ -263,7 +264,7 @@ export default function WeatherDashboardLayout() {
             </div>
             {/* right side sunrise and sunset  */}
             <div className="sunrise-sunset-container  flex flex-col gap-4 w-full lg:w-1/2 shadow  rounded-2xl mb-4">
-              <div className="bg-white rounded-2xl p-6 shadow flex flex-col justify-between ">
+              <div className="bg-white rounded-2xl p-6 flex flex-col justify-between ">
                 <div className="sunrise-sunset-heading m-2">
                   <span className="text-2xl font-semibold">
                     Sunrise & Sunset
@@ -293,8 +294,7 @@ export default function WeatherDashboardLayout() {
             </div>
           </div>
         </div>
-     <div className="right-side flex flex-col gap-4 w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 bg-white lg:order-0">
-
+        <div className="right-side flex flex-col gap-4 w-full lg:w-[30%] px-4 sm:px-6 md:px-10 lg:px-20 bg-white lg:order-0">
           <div className="top flex mt-4 justify-center">
             <div className="bg-[#F5F8FF] flex rounded-xl p-2 m-2 w-full max-w-xs">
               <MagnifyingGlassIcon
@@ -362,6 +362,7 @@ export default function WeatherDashboardLayout() {
               },
             ]}
           />
+          <Footer />
         </div>
       </div>
     </>
